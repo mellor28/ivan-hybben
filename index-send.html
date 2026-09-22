@@ -788,15 +788,6 @@ h2 {
 }
 .portrait.has-photo .portrait-photo { display: block !important; }
 .portrait.has-photo .portrait-fallback { display: none; }
-.portrait.has-photo::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 42%;
-  background: linear-gradient(to top, rgba(11, 12, 12, 0.82), transparent);
-  pointer-events: none;
-  z-index: 1;
-}
 .portrait-fallback {
   position: absolute;
   inset: 0;
@@ -811,19 +802,6 @@ h2 {
   font-size: 5.5rem;
   line-height: 1;
   color: var(--ink);
-}
-.portrait-caption {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 18px;
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-  z-index: 2;
-}
-.portrait.has-photo .portrait-caption {
-  color: var(--cream);
 }
 .about-copy .tag {
   margin: 0 0 12px;
@@ -919,17 +897,30 @@ h2 {
 }
 .contact-list a,
 .place {
+  display: block;
   margin: 0;
   font-family: var(--serif);
   font-size: clamp(1.4rem, 2.5vw, 1.9rem);
   text-decoration: none;
 }
+.contact-list a + a { margin-top: 6px; }
 .contact-list a:hover { color: var(--sage); }
+.contact-list .btn {
+  margin-top: 12px;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  white-space: normal;
+  text-align: left;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
 .place-note {
   margin: 6px 0 0;
   color: var(--muted);
   font-size: 14px;
-  max-width: 28ch;
+  max-width: 36ch;
 }
 .contact-side { display: grid; gap: 12px; }
 .offer-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -1328,7 +1319,6 @@ textarea { min-height: 110px; resize: vertical; }
             <p class="kicker" data-i18n="about.kicker">O mne</p>
             <div class="monogram">IH</div>
           </div>
-          <p class="portrait-caption" data-i18n="about.caption">Softvérový inžinier zo Slovenska. Mám rád výsledok, na ktorý ukážete v utorok.</p>
         </div>
         <div class="about-copy" data-reveal>
           <p class="tag" data-i18n="about.tag">Partner na prácu, ktorá naozaj beží</p>
@@ -1416,21 +1406,27 @@ textarea { min-height: 110px; resize: vertical; }
     </section>
 
     <section id="contact">
+      <!-- BOOKING_URL: paste Cal.com / Calendly URL here when ready. Until then the CTA uses mailto. -->
       <div class="wrap">
         <div class="contact">
           <div>
             <p class="kicker" data-i18n="contact.kicker">Kontakt</p>
-            <h2 data-i18n="contact.h2">Napíšte, čo chcete zlepšiť.</h2>
-            <p class="lede" data-i18n="contact.lede">Som na Slovensku. Píšte odkiaľkoľvek — časové pásma zvládneme. Stačí krátka správa. Odoslaním formulára sa otvorí váš mailový program a predvyplní správu na ivanhybben@gmail.com. Nič sa neposiela zo stránky — odošlete to vy.</p>
+            <h2 data-i18n="contact.h2">Pozrime sa, kde vám AI dokáže ušetriť čas.</h2>
+            <p class="lede" data-i18n="contact.lede">Napíšte mi v pár vetách, čo vás a váš tím v každodennej práci brzdí. Do 24 hodín sa vám ozvem s triezvym zhodnotením, či má zmysel danú úlohu automatizovať a aký postup odporúčam.</p>
             <div class="contact-list">
               <div>
                 <span data-i18n="contact.email">Email</span>
+                <a href="mailto:ivan@hybben.sk">ivan@hybben.sk</a>
                 <a href="mailto:ivanhybben@gmail.com">ivanhybben@gmail.com</a>
               </div>
               <div class="where">
-                <span data-i18n="contact.location">Kde som</span>
-                <p class="place" data-i18n="contact.remote">Slovensko</p>
-                <p class="place-note" data-i18n="contact.anywhere">Píšte odkiaľkoľvek. Práca na diaľku je predvolená.</p>
+                <span data-i18n="contact.work">Forma spolupráce</span>
+                <p class="place-note" data-i18n="contact.work.p">Osobné stretnutie po dohode. Online konzultácia je samozrejmosť.</p>
+              </div>
+              <div class="where">
+                <span data-i18n="contact.fast.t">Rýchlejší štart</span>
+                <p class="place-note" data-i18n="contact.fast.p">Nechcete čakať na e-mail?</p>
+                <a class="btn btn-ghost" data-i18n="contact.fast.cta" href="mailto:ivanhybben@gmail.com?subject=%C3%9Avodn%C3%BD%2020-min%C3%BAtov%C3%BD%20videohovor">Rezervujte si 20-minútový úvodný videohovor</a>
               </div>
             </div>
           </div>
@@ -1455,7 +1451,7 @@ textarea { min-height: 110px; resize: vertical; }
                 <textarea name="note" required data-i18n-placeholder="contact.note.ph" placeholder="Napíšte pár viet — čo sa opakuje, čo by malo ísť ľahšie."></textarea>
               </label>
               <button class="btn btn-lime" type="submit" data-i18n="contact.submit">Otvoriť email s touto správou</button>
-              <p class="form-hint" data-i18n="contact.hint">Otvorí sa váš mailový program. Správu odošlete vy — stránka nič neposiela.</p>
+              <p class="form-hint" data-i18n="contact.hint">Otvorí sa váš mailový program na ivanhybben@gmail.com. Správu odošlete vy — stránka nič neposiela.</p>
               <p class="form-status" data-form-status role="status"></p>
             </form>
           </div>
@@ -1568,7 +1564,7 @@ const SITE = {
     "rules.4": "Súbory ostávajú u vás.",
     "rules.4.p": " Nastavenie, asistent a návod ostávajú na vašej strane.",
     "about.kicker": "O mne",
-    "about.caption": "Softvérový inžinier zo Slovenska. Mám rád výsledok, na ktorý ukážete v utorok.",
+    "about.caption": "",
     "about.tag": "Partner na prácu, ktorá naozaj beží",
     "about.p1": "Ako softvérový inžinier pomáham firmám zapojiť AI tam, kde reálne šetrí čas. Žiadne experimenty pre efekt — vytvorím prehľad, ktorý sa ráno sám aktualizuje, asistenta, ktorý odpovedá priamo z vašich interných systémov, alebo postup, ktorý tím zvládne ovládať aj bezo mňa.",
     "about.p2": "Začínam od problému, nie od nástroja. Pomenujeme konkrétnu rutinu, ktorá vás brzdí, a nasadíme jednoduché riešenie, ktoré ľudia reálne začnú používať. Bezpečnosť a odovzdanie know-how sú samozrejmosťou.",
@@ -1591,12 +1587,14 @@ const SITE = {
     "faq.5.q": "Ako vám napíšem?",
     "faq.5.a": "Na ivanhybben@gmail.com. Formulár na stránke otvorí váš mailový program s predvyplnenou správou — správu odošlete vy.",
     "contact.kicker": "Kontakt",
-    "contact.h2": "Napíšte, čo chcete zlepšiť.",
-    "contact.lede": "Som na Slovensku. Píšte odkiaľkoľvek — časové pásma zvládneme. Stačí krátka správa. Odoslaním formulára sa otvorí váš mailový program a predvyplní správu na ivanhybben@gmail.com. Nič sa neposiela zo stránky — odošlete to vy.",
+    "contact.h2": "Pozrime sa, kde vám AI dokáže ušetriť čas.",
+    "contact.lede": "Napíšte mi v pár vetách, čo vás a váš tím v každodennej práci brzdí. Do 24 hodín sa vám ozvem s triezvym zhodnotením, či má zmysel danú úlohu automatizovať a aký postup odporúčam.",
     "contact.email": "Email",
-    "contact.location": "Kde som",
-    "contact.remote": "Slovensko",
-    "contact.anywhere": "Píšte odkiaľkoľvek. Práca na diaľku je predvolená.",
+    "contact.work": "Forma spolupráce",
+    "contact.work.p": "Osobné stretnutie po dohode. Online konzultácia je samozrejmosť.",
+    "contact.fast.t": "Rýchlejší štart",
+    "contact.fast.p": "Nechcete čakať na e-mail?",
+    "contact.fast.cta": "Rezervujte si 20-minútový úvodný videohovor",
     "contact.offer1.t": "Prvý rozhovor",
     "contact.offer1.p": "30 minút. Čo berie čas a koho to zaťažuje?",
     "contact.offer2.t": "Stačí odsek",
@@ -1606,9 +1604,9 @@ const SITE = {
     "contact.note": "Čo chcete zlepšiť",
     "contact.note.ph": "Napíšte pár viet — čo sa opakuje, čo by malo ísť ľahšie.",
     "contact.submit": "Otvoriť email s touto správou",
-    "contact.hint": "Otvorí sa váš mailový program. Správu odošlete vy — stránka nič neposiela.",
-    "contact.saved": "Mailový program by sa mal otvoriť. Ak nie, napíšte priamo na ivanhybben@gmail.com.",
-    "contact.saved.name": "Mailový program by sa mal otvoriť, {name}. Ak nie, napíšte priamo na ivanhybben@gmail.com.",
+    "contact.hint": "Otvorí sa váš mailový program na ivanhybben@gmail.com. Správu odošlete vy — stránka nič neposiela.",
+    "contact.saved": "Mailový program by sa mal otvoriť. Ak nie, napíšte na ivanhybben@gmail.com alebo ivan@hybben.sk.",
+    "contact.saved.name": "Mailový program by sa mal otvoriť, {name}. Ak nie, napíšte na ivanhybben@gmail.com alebo ivan@hybben.sk.",
     "contact.mail.subject": "Čo chcem zlepšiť",
     "contact.mail.body": "Meno: {name}\n\nČo chcem zlepšiť:\n{note}\n",
     "footer.copy": "© {year} Ivan Hybben. Slovensko · na diaľku.",
@@ -1709,7 +1707,7 @@ const SITE = {
     "rules.4": "Leave the files with you.",
     "rules.4.p": " The setup, the helper, and the notes stay on your side.",
     "about.kicker": "About",
-    "about.caption": "Software engineer based in Slovakia. I like a result you can point at on a Tuesday.",
+    "about.caption": "",
     "about.tag": "Your partner for work that actually runs",
     "about.p1": "As a software engineer, I help companies put AI where it actually saves time. No experiments for show — I’ll build a view that updates itself in the morning, an assistant that answers straight from your internal systems, or a process the team can run without me.",
     "about.p2": "I start from the problem, not the tool. We name the specific routine that’s slowing you down and ship a simple solution people will actually use. Security and handing over the know-how are a given.",
@@ -1732,12 +1730,14 @@ const SITE = {
     "faq.5.q": "How do I reach you?",
     "faq.5.a": "ivanhybben@gmail.com. The form on this page opens your mail app with a prefilled message — you send it.",
     "contact.kicker": "Contact",
-    "contact.h2": "Tell me what you want to improve.",
-    "contact.lede": "Based in Slovakia. Write from anywhere — timezones are fine. A short note is enough. Submitting the form opens your mail app with a message to ivanhybben@gmail.com. Nothing is sent from this page — you send it.",
+    "contact.h2": "Let’s see where AI can save you time.",
+    "contact.lede": "Write a few sentences about what slows you and your team down day to day. Within 24 hours I’ll reply with a clear take on whether that task is worth automating — and what I’d recommend next.",
     "contact.email": "Email",
-    "contact.location": "Where I am",
-    "contact.remote": "Slovakia",
-    "contact.anywhere": "Write from anywhere. Remote is the default.",
+    "contact.work": "How we work",
+    "contact.work.p": "An in-person meeting by agreement. Online consultation is standard.",
+    "contact.fast.t": "A faster start",
+    "contact.fast.p": "Don’t want to wait on email?",
+    "contact.fast.cta": "Book a 20-minute intro video call",
     "contact.offer1.t": "First conversation",
     "contact.offer1.p": "30 minutes. What is taking time, and who feels it?",
     "contact.offer2.t": "A short note is enough",
@@ -1747,9 +1747,9 @@ const SITE = {
     "contact.note": "What you want to improve",
     "contact.note.ph": "A few sentences — what repeats, what should get easier.",
     "contact.submit": "Open email with this message",
-    "contact.hint": "Your mail app will open. You send the message — this page sends nothing.",
-    "contact.saved": "Your mail app should open. If it does not, write directly to ivanhybben@gmail.com.",
-    "contact.saved.name": "Your mail app should open, {name}. If it does not, write directly to ivanhybben@gmail.com.",
+    "contact.hint": "Your mail app will open to ivanhybben@gmail.com. You send the message — this page sends nothing.",
+    "contact.saved": "Your mail app should open. If it does not, write to ivanhybben@gmail.com or ivan@hybben.sk.",
+    "contact.saved.name": "Your mail app should open, {name}. If it does not, write to ivanhybben@gmail.com or ivan@hybben.sk.",
     "contact.mail.subject": "What I want to improve",
     "contact.mail.body": "Name: {name}\n\nWhat I want to improve:\n{note}\n",
     "footer.copy": "© {year} Ivan Hybben. Slovakia · remote.",

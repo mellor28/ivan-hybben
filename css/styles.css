@@ -777,15 +777,6 @@ h2 {
 }
 .portrait.has-photo .portrait-photo { display: block !important; }
 .portrait.has-photo .portrait-fallback { display: none; }
-.portrait.has-photo::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 42%;
-  background: linear-gradient(to top, rgba(11, 12, 12, 0.82), transparent);
-  pointer-events: none;
-  z-index: 1;
-}
 .portrait-fallback {
   position: absolute;
   inset: 0;
@@ -800,19 +791,6 @@ h2 {
   font-size: 5.5rem;
   line-height: 1;
   color: var(--ink);
-}
-.portrait-caption {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 18px;
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-  z-index: 2;
-}
-.portrait.has-photo .portrait-caption {
-  color: var(--cream);
 }
 .about-copy .tag {
   margin: 0 0 12px;
@@ -908,17 +886,30 @@ h2 {
 }
 .contact-list a,
 .place {
+  display: block;
   margin: 0;
   font-family: var(--serif);
   font-size: clamp(1.4rem, 2.5vw, 1.9rem);
   text-decoration: none;
 }
+.contact-list a + a { margin-top: 6px; }
 .contact-list a:hover { color: var(--sage); }
+.contact-list .btn {
+  margin-top: 12px;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  white-space: normal;
+  text-align: left;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
 .place-note {
   margin: 6px 0 0;
   color: var(--muted);
   font-size: 14px;
-  max-width: 28ch;
+  max-width: 36ch;
 }
 .contact-side { display: grid; gap: 12px; }
 .offer-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
