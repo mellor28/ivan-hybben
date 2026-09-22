@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pracovný audit — Ivan Hybben</title>
+  <meta name="description" content="Osem otázok o opakujúcej sa práci, zdroji, človeku, ktorý by otvoril výsledok, a o tom, čo musí ostať ľudské. Odpovede ostávajú v prehliadači.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/audit.css">
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+    <span class="grid-fade"></span>
+    <span class="noise"></span>
+  </div>
+  <div class="spotlight" data-spotlight aria-hidden="true"></div>
+
+  <header class="nav" data-nav data-open="false">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html">
+        <span class="mark" aria-hidden="true">IH</span>
+        <span>Ivan Hybben</span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" data-i18n="nav.menu">Menu</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#work" data-i18n="nav.work">Práca</a></li>
+        <li><a href="index.html#services" data-i18n="nav.services">Služby</a></li>
+        <li><a href="index.html#process" data-i18n="nav.process">Proces</a></li>
+        <li><a href="index.html#about" data-i18n="nav.about">O mne</a></li>
+        <li><a href="index.html#faq" data-i18n="nav.faq">FAQ</a></li>
+        <li><a href="audit.html" aria-current="page" data-i18n="nav.audit">Audit</a></li>
+        <li><a href="index.html#contact" data-i18n="nav.contact">Kontakt</a></li>
+      </ul>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="sk" aria-pressed="true">SK</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-ink nav-cta" href="index.html#contact" data-i18n="nav.talk">Poďme si napísať</a>
+    </div>
+  </header>
+
+  <main class="audit">
+    <section data-intro>
+      <p class="kicker" data-i18n="intro.kicker">Pracovný audit · asi šesť minút</p>
+      <h1 data-i18n="intro.h1">Kam by to malo patriť?</h1>
+      <p class="audit-lead" data-i18n="intro.lead">Osem otázok. Pýtajú sa, či sa práca opakuje, či nástroj vidí zdroj dát, kto by otvoril výsledok a čo musí ostať na človeku. Vyhodnotenie ostáva v tomto prehliadači. Nič sa neposiela.</p>
+      <ul class="audit-points">
+        <li><strong data-i18n="intro.p1.t">Práca</strong><span data-i18n="intro.p1.s">Je tam opakujúca sa úloha?</span></li>
+        <li><strong data-i18n="intro.p2.t">Zdroj</strong><span data-i18n="intro.p2.s">Vidí stránka alebo asistent fakty?</span></li>
+        <li><strong data-i18n="intro.p3.t">Ľudia</strong><span data-i18n="intro.p3.s">Kto to otvorí v bežný deň?</span></li>
+        <li><strong data-i18n="intro.p4.t">Hranica</strong><span data-i18n="intro.p4.s">Čo musí ostať na človeku?</span></li>
+      </ul>
+      <button class="btn btn-ink" type="button" data-start data-i18n="intro.start">Spustiť audit</button>
+      <p class="audit-note" data-i18n="intro.note">Toto je lokálne vyhodnotenie vašich odpovedí. Nie je to certifikát a nedáva skóre zo 100.</p>
+    </section>
+
+    <section data-ask hidden>
+      <div class="q-top">
+        <span data-part>Práca</span>
+        <span data-count>1 z 8</span>
+      </div>
+      <div class="q-bar" aria-hidden="true"><span data-qbar></span></div>
+      <h2 data-prompt></h2>
+      <div class="choices" data-choices role="radiogroup" aria-label="Odpoveď"></div>
+      <div class="q-actions">
+        <button class="btn btn-ghost" type="button" data-back data-i18n="ask.back">Späť</button>
+        <button class="btn btn-ink" type="button" data-next disabled data-i18n="ask.next">Ďalej</button>
+      </div>
+    </section>
+
+    <section data-result hidden>
+      <p class="kicker" data-i18n="result.kicker">Vaše vyhodnotenie</p>
+      <h1 data-verdict></h1>
+      <div class="readings" data-readings></div>
+      <article class="callout">
+        <span data-i18n="result.human">Nechať na človeku</span>
+        <p data-boundary></p>
+      </article>
+      <article class="callout">
+        <span data-i18n="result.slice">Prvý kúsok</span>
+        <p data-slice></p>
+      </article>
+      <div class="result-actions">
+        <a class="btn btn-ink" data-cta href="mailto:ivanhybben@gmail.com">Napísať, čo chcem zlepšiť</a>
+        <button class="btn btn-ghost" type="button" data-again data-i18n="result.again">Začať odznova</button>
+      </div>
+      <p class="audit-note" data-i18n="result.note">Nič neodišlo z tohto počítača. Ďalší krok: napíšte Ivanovi, čo chcete zlepšiť.</p>
+    </section>
+  </main>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/audit.js"></script>
+</body>
+</html>

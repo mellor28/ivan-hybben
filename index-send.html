@@ -1,0 +1,2167 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ivan Hybben — jednoduchšie denné úlohy vo firme</title>
+  <meta name="description" content="Ivan Hybben pomáha malým firmám a tímom zbaviť sa opakujúcej sa rutiny: reporty, schránka, odpovede z vašich dát a nastavenie AI nástrojov, ktoré ľudia naozaj otvoria. Slovensko · na diaľku.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+:root {
+  color-scheme: dark;
+  --page: #0b0c0c;
+  --surface: #141615;
+  --surface-2: #1c1f1d;
+  --ink: #ecece8;
+  --muted: #8b8e87;
+  --faint: #6a6d67;
+  --line: rgba(236, 236, 232, 0.12);
+  --line-strong: rgba(236, 236, 232, 0.22);
+  --sage: #a8b5a4;
+  --cream: #ecece8;
+  --nav: 72px;
+  --radius: 22px;
+  --radius-lg: 28px;
+  --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  --serif: "Instrument Serif", "Iowan Old Style", "Times New Roman", Georgia, serif;
+  --sans: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  background: var(--page);
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background: var(--page);
+  font-family: var(--sans);
+  font-size: 16.5px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body.nav-open { overflow: hidden; }
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+::selection { background: var(--sage); color: #0b0c0c; }
+
+.skip {
+  position: absolute;
+  left: 16px;
+  top: -40px;
+  z-index: 40;
+  padding: 8px 12px;
+  background: #111;
+  color: #fff;
+}
+.skip:focus { top: 12px; }
+
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--page);
+}
+.orb { display: none; }
+.grid-fade {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(168, 181, 164, 0.12), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(236, 236, 232, 0.04), transparent 50%);
+}
+.noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.045 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.spotlight {
+  position: fixed;
+  z-index: 1;
+  width: 420px;
+  height: 420px;
+  margin: -210px 0 0 -210px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(168, 181, 164, 0.08), transparent 65%);
+  opacity: 0.7;
+  mix-blend-mode: screen;
+}
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 100%;
+  height: 2px;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--sage), var(--cream));
+  pointer-events: none;
+}
+
+.wrap {
+  width: min(1120px, calc(100% - 48px));
+  margin-inline: auto;
+  position: relative;
+  z-index: 2;
+}
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 30;
+  height: var(--nav);
+  display: flex;
+  align-items: center;
+  background: rgba(11, 12, 12, 0.55);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid transparent;
+}
+.is-scrolled .nav {
+  background: rgba(11, 12, 12, 0.88);
+  border-bottom-color: var(--line);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.mark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.55rem;
+  line-height: 1;
+  color: var(--ink);
+  background: none;
+  box-shadow: none;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+}
+.brand > span:last-child {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+.nav-links {
+  display: flex;
+  gap: 22px;
+  margin-left: auto;
+  list-style: none;
+  padding: 0;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.nav-links a[aria-current="true"],
+.nav-links a[aria-current="page"],
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { margin-left: 4px; }
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(236, 236, 232, 0.04);
+}
+.lang-switch button {
+  min-width: 38px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+.lang-switch button.is-active,
+.lang-switch button[aria-pressed="true"] {
+  color: #0b0c0c;
+  background: var(--cream);
+}
+.nav-toggle {
+  display: none;
+  margin-left: auto;
+  border: 1px solid var(--line);
+  background: rgba(236, 236, 232, 0.04);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: 560;
+  font-size: 14.5px;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-ink {
+  color: #0b0c0c;
+  background: var(--cream);
+  box-shadow: none;
+}
+.btn-ink:hover { background: #fff; }
+.btn-ghost {
+  color: var(--ink);
+  border-color: var(--line-strong);
+  background: rgba(236, 236, 232, 0.03);
+  backdrop-filter: blur(10px);
+}
+.btn-ghost:hover {
+  border-color: rgba(236, 236, 232, 0.35);
+  background: rgba(236, 236, 232, 0.06);
+}
+.btn-lime {
+  color: #0b0c0c;
+  background: var(--sage);
+  box-shadow: none;
+}
+.btn-lime:hover { filter: brightness(1.06); }
+
+.hero-stage {
+  position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding: calc(var(--nav) + 36px) 0 48px;
+  overflow: hidden;
+}
+.hero-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(11, 12, 12, 0.35) 0%, rgba(11, 12, 12, 0.55) 45%, rgba(11, 12, 12, 0.92) 100%),
+    radial-gradient(ellipse 70% 55% at 50% 35%, rgba(180, 140, 80, 0.18), transparent 60%),
+    radial-gradient(ellipse 90% 70% at 50% 80%, #0b0c0c 0%, transparent 55%),
+    linear-gradient(185deg, #1a1c1a 0%, #121413 35%, #0b0c0c 100%);
+}
+.hero-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.45;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  pointer-events: none;
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 36px;
+  align-items: end;
+  width: min(1120px, calc(100% - 48px));
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.hero-copy .kicker {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin: 0 0 18px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 6.2vw, 4.6rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  max-width: 14ch;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--sage);
+}
+.deck {
+  margin: 0 0 28px;
+  max-width: 38rem;
+  color: rgba(236, 236, 232, 0.78);
+  font-size: 1.05rem;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+}
+.hero-audit { display: grid; gap: 8px; }
+.send-audit-note {
+  display: block;
+  color: var(--faint);
+  font-size: 12.5px;
+  max-width: 36ch;
+}
+
+.console {
+  position: relative;
+  z-index: 2;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: rgba(11, 12, 12, 0.62);
+  backdrop-filter: blur(22px);
+  box-shadow: var(--shadow);
+  transform: none;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.console:hover {
+  transform: translateY(-4px);
+  border-color: var(--line-strong);
+}
+.console-top, .console-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--faint);
+  letter-spacing: 0.04em;
+}
+.live { display: inline-flex; align-items: center; gap: 8px; color: var(--sage); }
+.live i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--sage);
+  animation: pulse 2.2s infinite;
+}
+.console-body {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(236, 236, 232, 0.04);
+  border: 1px solid var(--line);
+  min-height: 180px;
+}
+.console.is-swap .console-body { opacity: 0.3; transform: translateY(4px); }
+.console-body { transition: opacity 0.18s ease, transform 0.18s ease; }
+.sketch-badge {
+  color: var(--sage);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.sketch-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 2px;
+}
+.sketch-dots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(236, 236, 232, 0.2);
+  cursor: pointer;
+}
+.sketch-dots button[aria-current="true"] {
+  background: var(--sage);
+}
+.ring-wrap { position: relative; width: 120px; }
+.ring { width: 120px; height: 120px; }
+.ring-track { fill: none; stroke: rgba(236, 236, 232, 0.1); }
+.ring-value {
+  fill: none;
+  stroke: var(--sage);
+  stroke-linecap: round;
+  stroke-dasharray: 74 100;
+  transform: rotate(-90deg);
+  transform-origin: 60px 60px;
+}
+.ring-value.alt { stroke: var(--cream); stroke-dasharray: 46 100; opacity: 0.55; }
+.ring-label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  align-content: center;
+}
+.ring-label strong { font-family: var(--serif); font-size: 24px; line-height: 1; }
+.ring-label span { color: var(--faint); font-size: 11px; }
+.lanes { display: grid; gap: 10px; align-content: center; }
+.lanes.full { grid-column: 1 / -1; }
+.lane span { color: var(--faint); font-size: 12px; }
+.bars { display: flex; align-items: end; gap: 5px; height: 42px; margin-top: 6px; }
+.bars.tall { height: 56px; }
+.bars i {
+  display: block;
+  width: 8px;
+  height: var(--h);
+  border-radius: 99px;
+  background: rgba(236, 236, 232, 0.18);
+}
+.bars i.on { background: var(--sage); }
+.bubble {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(236, 236, 232, 0.05);
+  font-size: 13px;
+}
+.bubble.answer { background: rgba(168, 181, 164, 0.14); color: var(--sage); }
+.bubble.dim { opacity: 0.72; color: var(--muted); background: rgba(236, 236, 232, 0.04); }
+.console-orbit { display: none; }
+.console-float {
+  position: absolute;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(11, 12, 12, 0.88);
+  backdrop-filter: blur(14px);
+  font: 500 10px/1 var(--mono);
+  letter-spacing: 0.04em;
+  color: #c8cbc4;
+}
+.console-float i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+.console-float b { color: var(--sage); font-weight: 500; }
+.float-one { top: 14%; right: -28px; animation: floaty 5s ease-in-out infinite; }
+.float-two { left: -24px; bottom: 18%; animation: floaty 6.4s ease-in-out infinite reverse; }
+.sketch-stack { display: grid; gap: 10px; }
+.mail-row {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(236, 236, 232, 0.03);
+}
+.mail-row.mute { opacity: 0.55; }
+.mail-row b { font-size: 14px; }
+.mail-row small { color: var(--faint); font-size: 12px; }
+.tag-soft {
+  width: fit-content;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(168, 181, 164, 0.14);
+  color: var(--sage);
+  font: 500 10px/1.4 var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.proof {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin: 8px auto 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: rgba(20, 22, 21, 0.72);
+  backdrop-filter: blur(16px);
+}
+.proof article {
+  padding: 22px 20px;
+  border-right: 1px solid var(--line);
+}
+.proof article:last-child { border-right: 0; }
+.proof strong {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--faint);
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.12em;
+}
+.proof h3 {
+  margin: 0 0 8px;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.proof p { margin: 0; color: var(--muted); font-size: 14px; }
+
+.ticker {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  background: rgba(20, 22, 21, 0.55);
+  position: relative;
+  z-index: 2;
+}
+.ticker-track {
+  display: flex;
+  gap: 28px;
+  width: max-content;
+  padding: 14px 0;
+  animation: ticker 42s linear infinite;
+  color: var(--muted);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.ticker b { color: var(--sage); }
+
+section {
+  position: relative;
+  z-index: 2;
+  padding: 88px 0;
+  border-top: 1px solid var(--line);
+}
+.section-head {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 18px;
+  margin-bottom: 36px;
+  align-items: start;
+}
+.section-head .index,
+.index {
+  margin: 6px 0 0;
+  color: var(--faint);
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.14em;
+}
+h2 {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+.lede {
+  margin: 0;
+  max-width: 40rem;
+  color: var(--muted);
+}
+
+.fit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.fit-grid article,
+.card {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(20, 22, 21, 0.65);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+.fit-grid article:hover,
+.card:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-2px);
+}
+.icon-box {
+  width: 42px;
+  height: 42px;
+  margin-bottom: 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  color: var(--sage);
+  background: rgba(168, 181, 164, 0.08);
+}
+.icon-box svg { width: 20px; height: 20px; }
+.icon-box.violet,
+.icon-box.lime,
+.icon-box.orange { color: var(--sage); background: rgba(168, 181, 164, 0.08); }
+.num {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--faint);
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.12em;
+}
+.fit-grid h3,
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.fit-grid p,
+.card > p { margin: 0; color: var(--muted); font-size: 14.5px; }
+.card ul {
+  margin: 16px 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+.card li {
+  color: var(--muted);
+  font-size: 14px;
+  padding-left: 14px;
+  position: relative;
+}
+.card li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--sage);
+}
+.leave {
+  margin: 0 0 16px;
+  color: var(--ink);
+  font-size: 14px;
+}
+.leave span:first-child {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--faint);
+  font: 500 11px/1.2 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.services {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.skills {
+  margin-top: 36px;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: rgba(20, 22, 21, 0.55);
+}
+.skills h3 {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 400;
+}
+.skill-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.skill-list li {
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(236, 236, 232, 0.03);
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: rgba(20, 22, 21, 0.45);
+}
+.step {
+  padding: 24px 20px;
+  min-height: 220px;
+  border-left: 1px solid var(--line);
+}
+.step:first-child { border-left: 0; }
+.step b {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--faint);
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.12em;
+}
+.step h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.step p { margin: 0; color: var(--muted); font-size: 14.5px; }
+
+.rules {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 40px;
+  align-items: start;
+}
+.rule-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.rule-list li {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+  padding: 20px 18px;
+  border-top: 1px solid var(--line);
+  background: rgba(20, 22, 21, 0.45);
+}
+.rule-list li:first-child { border-top: 0; }
+.rule-list span {
+  color: var(--faint);
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.1em;
+}
+.rule-list p { margin: 0; color: var(--muted); }
+.rule-list strong { color: var(--ink); }
+
+.about {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 36px;
+  align-items: center;
+}
+.portrait {
+  position: relative;
+  min-height: 420px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background:
+    linear-gradient(160deg, rgba(168, 181, 164, 0.12), transparent 45%),
+    #141615;
+}
+.portrait-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.portrait.has-photo .portrait-photo { display: block !important; }
+.portrait.has-photo .portrait-fallback { display: none; }
+.portrait-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 12px;
+  text-align: center;
+}
+.monogram {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 5.5rem;
+  line-height: 1;
+  color: var(--ink);
+}
+.portrait-caption {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 18px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.about-copy .tag {
+  margin: 0 0 12px;
+  color: var(--sage);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.about-copy h2 {
+  margin: 0 0 16px;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+}
+.about-copy p { color: var(--muted); }
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.chips li {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(236, 236, 232, 0.03);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.faq { display: grid; gap: 0; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+.faq-item { border-top: 1px solid var(--line); background: rgba(20, 22, 21, 0.4); }
+.faq-item:first-child { border-top: 0; }
+.faq-item h3 { margin: 0; }
+.faq-item button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 20px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 550;
+}
+.plus {
+  width: 18px;
+  height: 18px;
+  position: relative;
+  flex: none;
+}
+.plus::before,
+.plus::after {
+  content: "";
+  position: absolute;
+  background: var(--muted);
+  transition: transform 0.2s ease;
+}
+.plus::before { inset: 8px 0 auto; height: 1.5px; }
+.plus::after { inset: 0 8px; width: 1.5px; }
+.faq-item[data-open="true"] .plus::after { transform: scaleY(0); }
+.faq-panel { padding: 0 20px 18px; color: var(--muted); }
+.faq-panel p { margin: 0; }
+
+.contact {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 28px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(20, 22, 21, 0.55);
+}
+.contact .kicker {
+  margin: 0 0 10px;
+  color: var(--faint);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.contact-list { display: grid; gap: 18px; margin-top: 28px; }
+.contact-list span {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--faint);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.contact-list a,
+.place {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  text-decoration: none;
+}
+.contact-list a:hover { color: var(--sage); }
+.place-note {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 28ch;
+}
+.contact-side { display: grid; gap: 12px; }
+.offer-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.mini {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px;
+  background: rgba(236, 236, 232, 0.03);
+}
+.mini h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.mini p { margin: 0; color: var(--muted); font-size: 14px; }
+form { display: grid; gap: 12px; }
+.field { display: grid; gap: 6px; }
+.field span { color: var(--faint); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+input, select, textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: rgba(11, 12, 12, 0.55);
+  border-radius: 14px;
+  padding: 12px;
+  color: var(--ink);
+}
+input::placeholder, textarea::placeholder { color: var(--faint); }
+textarea { min-height: 110px; resize: vertical; }
+.form-hint {
+  margin: 0;
+  color: var(--faint);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.form-status { min-height: 1.4em; color: var(--sage); font-size: 14px; }
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 28px 0 48px;
+  color: var(--muted);
+  font-size: 14px;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--line);
+}
+.footer a { color: var(--sage); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+
+@keyframes ticker { to { transform: translateX(-50%); } }
+@keyframes pulse {
+  70% { box-shadow: 0 0 0 8px rgba(168, 181, 164, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(168, 181, 164, 0); }
+}
+@keyframes floaty {
+  50% { transform: translateY(-8px); }
+}
+
+@media (max-width: 980px) {
+  .hero, .about, .contact, .services, .steps, .fit-grid, .rules, .proof, .offer-row, .skill-list {
+    grid-template-columns: 1fr;
+  }
+  .nav-links, .nav-cta { display: none; }
+  .nav-toggle { display: inline-flex; margin-left: auto; }
+  .lang-switch { margin-left: 8px; }
+  .nav[data-open="true"] {
+    height: auto;
+    background: rgba(11, 12, 12, 0.96);
+    border-bottom-color: var(--line);
+  }
+  .nav[data-open="true"] .nav-inner { flex-wrap: wrap; padding: 12px 0 18px; }
+  .nav[data-open="true"] .nav-links {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    gap: 14px;
+    order: 3;
+    margin: 12px 0 0;
+  }
+  .nav[data-open="true"] .lang-switch { order: 2; }
+  .nav[data-open="true"] .nav-cta { display: inline-flex; order: 4; margin: 8px 0 0; }
+  .hero-stage { min-height: auto; padding: 100px 0 40px; }
+  .console { margin-top: 8px; }
+  .proof article { border-right: 0; border-bottom: 1px solid var(--line); }
+  .proof article:last-child { border-bottom: 0; }
+  .section-head { grid-template-columns: 1fr; }
+  .step + .step { border-left: 0; border-top: 1px solid var(--line); }
+  .step { min-height: 0; }
+  h1, .hero h1 { font-size: clamp(2.6rem, 11vw, 3.8rem); max-width: none; }
+}
+
+@media (max-width: 640px) {
+  .wrap, .hero { width: min(1120px, calc(100% - 28px)); }
+  section { padding: 64px 0; }
+  .contact { padding: 20px; border-radius: 22px; }
+  .contact-list a, .place { font-size: 1.35rem; }
+  .footer { flex-direction: column; }
+  .console-float { display: none; }
+  .spotlight { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .ticker-track, .live i, .console-float { animation: none; }
+  .js [data-reveal] { opacity: 1; transform: none; }
+  .btn:hover, .card:hover, .fit-grid article:hover, .console, .console:hover { transform: none; }
+  .spotlight { display: none; }
+}
+
+.send-audit-note { display:block; margin-top:10px; color:var(--faint); font-size:12.5px; max-width:36ch; }
+</style>
+    <script>document.documentElement.classList.add("js");</script>
+</head>
+<body id="top">
+  <a class="skip" href="#services" data-i18n="skip">Preskočiť na obsah</a>
+  <div class="atmosphere" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+    <span class="grid-fade"></span>
+    <span class="noise"></span>
+  </div>
+  <div class="spotlight" data-spotlight aria-hidden="true"></div>
+  <div class="progress" data-progress></div>
+
+  <header class="nav" data-nav data-open="false">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">
+        <span class="mark" aria-hidden="true">IH</span>
+        <span>Ivan Hybben</span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" data-i18n="nav.menu">Menu</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#services" data-i18n="nav.services">Služby</a></li>
+        <li><a href="#process" data-i18n="nav.process">Ako to ide</a></li>
+        <li><a href="#about" data-i18n="nav.about">O mne</a></li>
+        <li><a href="#faq" data-i18n="nav.faq">Otázky</a></li>
+        <li><a href="audit-send.html" data-i18n="nav.audit">Audit</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Kontakt</a></li>
+      </ul>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="sk" aria-pressed="true">SK</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-ink nav-cta" href="#contact" data-i18n="nav.talk">Napíšte mi</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-stage">
+      <div class="wrap hero">
+        <div class="hero-copy is-in" data-reveal>
+          <h1>
+            <span data-i18n="hero.h1.a">Report. Schránka. Tá istá otázka.</span>
+            <em data-i18n="hero.h1.b">Nastavím to</em>
+            <span data-i18n="hero.h1.c">tak, aby to už nebolo ručne.</span>
+          </h1>
+          <p class="deck" data-i18n="hero.deck">Každý týždeň to isté kopírujete, triedite alebo vysvetľujete. Na tú úlohu dám jednoduchý systém a krátky návod, ako ho spustiť.</p>
+          <div class="hero-actions">
+            <div class="hero-audit">
+            <a class="btn btn-ink" href="audit-send.html" data-i18n="hero.cta.audit">Spustiť pracovný audit</a>
+            <span class="send-audit-note" data-i18n="hero.cta.audit.note">Audit je samostatný súbor audit-send.html — pošlite ho spolu s touto stránkou.</span>
+          </div>
+          <a class="btn btn-ghost" href="#contact" data-i18n="hero.cta.talk">Napísať, čo chcem zlepšiť</a>
+          </div>
+        </div>
+
+        <aside class="console is-in" aria-label="Illustrative sketches" data-tilt data-reveal data-sketches>
+          <span class="console-orbit orbit-one"></span>
+          <span class="console-orbit orbit-two"></span>
+          <div class="console-top">
+            <span class="live"><i></i> <span data-sketch-live>Živý náčrt</span></span>
+            <span data-sketch-title>inbox-triage</span>
+          </div>
+          <div class="console-body" data-sketch-body>
+            <div class="sketch-stack">
+              <div class="mail-row"><span class="tag-soft">Triáž</span><b>Faktúra · dodávateľ</b><small>Pripraviť návrh odpovede</small></div>
+              <div class="mail-row mute"><span class="tag-soft">Preskočiť</span><b>Newsletter · nástroj</b><small>Bez zákazníka, bez termínu</small></div>
+              <div class="mail-row"><span class="tag-soft">Ľudské</span><b>Žiadosť · klient</b><small>Asistent pripraví. Človek odošle.</small></div>
+            </div>
+          </div>
+          <div class="console-foot">
+            <span class="sketch-badge">Sketch</span>
+            <span data-sketch-foot>Náčrt — bez skutočných e-mailov</span>
+          </div>
+          <div class="sketch-dots" data-sketch-dots></div>
+          <div class="console-float float-one" data-sketch-float1><i></i> Hranica nastavená</div>
+          <div class="console-float float-two" data-sketch-float2>Človek <b>stále posiela</b></div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="proof wrap" data-reveal>
+      <article>
+        <strong>01</strong>
+        <h3 data-i18n="proof.1.t">Najprv úloha</h3>
+        <p data-i18n="proof.1.p">Najprv pomenujeme, čo vás brzdí. Až potom vyberieme nástroj.</p>
+      </article>
+      <article>
+        <strong>02</strong>
+        <h3 data-i18n="proof.2.t">Z vašich dát</h3>
+        <p data-i18n="proof.2.p">Asistent odpovie z toho, čo už máte — alebo povie, že to nevidí.</p>
+      </article>
+      <article>
+        <strong>03</strong>
+        <h3 data-i18n="proof.3.t">S odovzdaním</h3>
+        <p data-i18n="proof.3.p">Ostane vám nastavenie a krátky návod, ako to spustiť bezo mňa.</p>
+      </article>
+    </div>
+
+    <div class="ticker" aria-hidden="true" data-ticker></div>
+
+    <section id="fit">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="index" data-i18n="fit.index">01</p>
+          <div>
+            <h2 data-i18n="fit.h2">Úlohy, ktoré sa oplatí zjednodušiť.</h2>
+            <p class="lede" data-i18n="fit.lede">Tieto tri situácie vidím najčastejšie. Ak je jedna z nich vaša, zvyšok stránky ukazuje, ako na to.</p>
+          </div>
+        </div>
+        <div class="fit-grid">
+          <article data-reveal>
+            <div class="icon-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12h4l2-6 4 12 2-6h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="num">01</span>
+            <h3 data-i18n="fit.1.t">Pondelkový report</h3>
+            <p data-i18n="fit.1.p">Niekto znova skladá ten istý prehľad ručne. Čísla už existujú. Stránka by ich mala ukázať sama — a aj zajtra.</p>
+          </article>
+          <article data-reveal>
+            <div class="icon-box violet" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8 14h.01M12 14h.01M16 14h.01M7 18h10a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <span class="num">02</span>
+            <h3 data-i18n="fit.2.t">Odpovede z hlavy</h3>
+            <p data-i18n="fit.2.p">Ľudia sa pýtajú to isté. Asistent by mal odpovedať z vášho systému — alebo povedať, že údaj nevidí.</p>
+          </article>
+          <article data-reveal>
+            <div class="icon-box lime" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M5 8l2 1.5M17 14.5 19 16M5 16l2-1.5M17 9.5 19 8M8 12a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <span class="num">03</span>
+            <h3 data-i18n="fit.3.t">Stále to isté ručne</h3>
+            <p data-i18n="fit.3.p">Pondelkový report sa stále kopíruje z tabuliek. Schránku niekto triedi ručne. Na tú istú otázku vie odpoveď len jeden kolega. Na tú konkrétnu úlohu dám jednoduché nastavenie a krátky návod, ako to spustiť.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="index" data-i18n="svc.index">02</p>
+          <div>
+            <h2 data-i18n="svc.h2">Čo pre vás viem spraviť.</h2>
+            <p class="lede" data-i18n="svc.lede">Od krátkeho auditu po bežiaci kúsok. Vyberiete, čo vás brzdí — dostanete niečo, čo tím otvorí.</p>
+          </div>
+        </div>
+        <div class="services">
+          <article class="card" data-reveal>
+            <div class="icon-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5h6l2 3h8v11H4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 13h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <span class="num">01</span>
+            <h3 data-i18n="svc.1.t">AI nástroje pre tím</h3>
+            <p data-i18n="svc.1.p">Ktorý nástroj, kde sedí v dni a čoho sa nemá dotknúť. Nastavenie vnútri práce, nie vedľa nej.</p>
+            <ul>
+              <li data-i18n="svc.1.l1">Mapovanie pracovného postupu</li>
+              <li data-i18n="svc.1.l2">Výber nástroja a hranice</li>
+              <li data-i18n="svc.1.l3">Nastavenie so tímom</li>
+              <li data-i18n="svc.1.l4">Krátke odovzdanie</li>
+            </ul>
+            <p class="leave"><span data-i18n="leave">Odnesiete si</span> <span data-i18n="svc.1.leave">nastavenie, ktoré niekto naozaj otvorí, a stránku s návodom.</span></p>
+            <a class="btn btn-ghost" href="#contact" data-i18n="svc.1.cta">Začať tu</a>
+          </article>
+          <article class="card" data-reveal>
+            <div class="icon-box violet" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5h16v14H4Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 15l3-3 2 2 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="num">02</span>
+            <h3 data-i18n="svc.2.t">Automatizácie vo firme</h3>
+            <p data-i18n="svc.2.p">Opakujúce sa reporty, follow-upy a odovzdávky. Menej ručného skladania, menej zabudnutých krokov.</p>
+            <ul>
+              <li data-i18n="svc.2.l1">Schránka a triáž</li>
+              <li data-i18n="svc.2.l2">Reporty s obnovou</li>
+              <li data-i18n="svc.2.l3">Follow-upy, ktoré nezapadnú</li>
+              <li data-i18n="svc.2.l4">Odovzdávky medzi ľuďmi</li>
+            </ul>
+            <p class="leave"><span data-i18n="leave">Odnesiete si</span> <span data-i18n="svc.2.leave">bežiaci postup a kroky, ako ho udržať.</span></p>
+            <a class="btn btn-ghost" href="#contact" data-i18n="svc.2.cta">Automatizovať úlohu</a>
+          </article>
+          <article class="card" data-reveal>
+            <div class="icon-box orange" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 20c-4.4 0-8-3.1-8-7s3.6-7 8-7 8 3.1 8 7c0 1.6-.6 3-1.6 4.2L20 20l-4-.8c-1.2.5-2.6.8-4 .8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="num">03</span>
+            <h3 data-i18n="svc.3.t">Asistent z vašich dát</h3>
+            <p data-i18n="svc.3.p">Pomocník, ktorý odpovie z tabuliek, CRM alebo iného systému, ktorý už používate. Heslo ostáva mimo chatu. Keď údaj nevidí, povie to.</p>
+            <ul>
+              <li data-i18n="svc.3.l1">Jasná úloha asistenta</li>
+              <li data-i18n="svc.3.l2">Pripojenie k vašim dátam</li>
+              <li data-i18n="svc.3.l3">Prihlásenie mimo chatu</li>
+              <li data-i18n="svc.3.l4">Otázky, ktoré ľudia naozaj kladú</li>
+            </ul>
+            <p class="leave"><span data-i18n="leave">Odnesiete si</span> <span data-i18n="svc.3.leave">asistenta, pripojenie a otázky, na ktoré smie odpovedať.</span></p>
+            <a class="btn btn-ghost" href="#contact" data-i18n="svc.3.cta">Nastaviť asistenta</a>
+          </article>
+        </div>
+
+        <div class="skills" data-reveal>
+          <h3 data-i18n="skills.h2">Ako to vyzerá v bežný deň.</h3>
+          <p class="lede" data-i18n="skills.lede">Konkrétne kúsky, nie agentúrny predaj.</p>
+          <ul class="skill-list">
+            <li data-i18n="skills.1">Pondelkový report, ktorý sa obnoví sám</li>
+            <li data-i18n="skills.2">Triedenie schránky so zdrojom a hranicou</li>
+            <li data-i18n="skills.3">Poznámky zo stretnutia premenené na úlohy</li>
+            <li data-i18n="skills.4">Vedomosti tímu, na ktoré sa dá spýtať</li>
+            <li data-i18n="skills.5">Nastavenie nástrojov tak, aby ich ľudia otvorili</li>
+            <li data-i18n="skills.6">Asistent, ktorý odpovie z vašich dát</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="index" data-i18n="proc.index">03</p>
+          <div>
+            <h2 data-i18n="proc.h2">Ako projekt reálne postupuje.</h2>
+            <p class="lede" data-i18n="proc.lede">Dosť malý na skúšku, dosť hotový na odovzdanie.</p>
+          </div>
+        </div>
+        <div class="steps" data-reveal>
+          <article class="step">
+            <b>01</b>
+            <h3 data-i18n="proc.1.t">Pomenovať prácu</h3>
+            <p data-i18n="proc.1.p">Aké rozhodnutie alebo opakujúca sa úloha má byť ľahšia? Pomenujeme dáta, ľudí a čo znamená hotovo.</p>
+          </article>
+          <article class="step">
+            <b>02</b>
+            <h3 data-i18n="proc.2.t">Malý prvý kúsok</h3>
+            <p data-i18n="proc.2.p">Nastavenie, asistent s jedným skutočným pripojením, alebo postup, ktorý jeden človek skúsi tento týždeň.</p>
+          </article>
+          <article class="step">
+            <b>03</b>
+            <h3 data-i18n="proc.3.t">Poriadne napojiť</h3>
+            <p data-i18n="proc.3.p">Prístup na vašej strane, hranice a kroky, ktoré zvládne aj niekto iný.</p>
+          </article>
+          <article class="step">
+            <b>04</b>
+            <h3 data-i18n="proc.4.t">Nechať bežať</h3>
+            <p data-i18n="proc.4.p">Dokumentácia, odovzdanie a krátke doladenie, keď skutočné použitie ukáže, čo opraviť.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules">
+      <div class="wrap rules">
+        <div data-reveal>
+          <p class="index" data-i18n="rules.index">04</p>
+          <h2 data-i18n="rules.h2">Malý systém, ktorému ľudia veria.</h2>
+          <p class="lede" data-i18n="rules.lede">Toto sú pravidlá. Platí ich aj firemná práca.</p>
+        </div>
+        <ol class="rule-list">
+          <li data-reveal>
+            <span>01</span>
+            <p><strong data-i18n="rules.1">Vidieť zdroj.</strong><span data-i18n="rules.1.p"> Asistent odpovedá zo systému, alebo povie, že nevie. Odpoveď z hádania neposielam.</span></p>
+          </li>
+          <li data-reveal>
+            <span>02</span>
+            <p><strong data-i18n="rules.2">Prihlásenie mimo chatu.</strong><span data-i18n="rules.2.p"> Heslá ostanú v jednorazovom prihlásení. Chat ich nikdy neuvidí.</span></p>
+          </li>
+          <li data-reveal>
+            <span>03</span>
+            <p><strong data-i18n="rules.3">Označiť, čo ostáva na človeku.</strong><span data-i18n="rules.3.p"> Niektoré kroky sa nemajú automatizovať. Pomenujeme ich skôr, než niečo zapojíme.</span></p>
+          </li>
+          <li data-reveal>
+            <span>04</span>
+            <p><strong data-i18n="rules.4">Súbory ostávajú u vás.</strong><span data-i18n="rules.4.p"> Nastavenie, asistent a návod ostávajú na vašej strane.</span></p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap about">
+        <div class="portrait" data-reveal>
+          <!-- Portrait omitted in standalone sendable file; IH monogram shows. -->
+          <div class="portrait-fallback">
+            <p class="kicker" data-i18n="about.kicker">O mne</p>
+            <div class="monogram">IH</div>
+          </div>
+          <p class="portrait-caption" data-i18n="about.caption">Softvérový inžinier zo Slovenska. Mám rád výsledok, na ktorý ukážete v utorok.</p>
+        </div>
+        <div class="about-copy" data-reveal>
+          <p class="tag" data-i18n="about.tag">Partner na prácu, ktorá naozaj beží</p>
+          <h2>Ivan Hybben.</h2>
+          <p data-i18n="about.p1">Staviam jednoduchú vrstvu, vďaka ktorej je AI užitočná. Stránka, ktorá sa dnes ráno obnovila. Asistent, ktorý odpovedal z živých dát. Kolega, ktorý to spustí aj bez mňa. Pracujem zo Slovenska s ľuďmi odkiaľkoľvek.</p>
+          <p data-i18n="about.p2">Začínam od úlohy, nie od nástroja. Keď je jasné, čo sa má stať ľahšie, nastavím alebo postavím ten najmenší kúsok, ktorý tím otvorí — a odovzdám ho tak, aby bežal aj bezo mňa.</p>
+          <ul class="chips">
+            <li data-i18n="chip.1">AI nastavenie pre tím</li>
+            <li data-i18n="chip.2">Automatizácie vo firme</li>
+            <li data-i18n="chip.3">Asistent z vašich dát</li>
+            <li data-i18n="chip.4">Dashboardy s obnovou</li>
+            <li data-i18n="chip.5">Lokálne, keď na tom záleží</li>
+            <li data-i18n="chip.6">Dokumentácia na odovzdanie</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="index" data-i18n="faq.index">05</p>
+          <div>
+            <h2 data-i18n="faq.h2">Otázky, ktoré stoja za to položiť skôr.</h2>
+          </div>
+        </div>
+        <div class="faq">
+          <article class="faq-item" data-faq data-open="false">
+            <h3>
+              <button type="button" aria-expanded="false">
+                <span data-i18n="faq.1.q">Čo konkrétne odovzdáte?</span>
+                <span class="plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" data-faq-panel hidden>
+              <p data-i18n="faq.1.a">Bežiaci kúsok a návod, ako ho udržať. Môže to byť nastavenie AI v nástrojoch, ktoré už máte, automatizovaný report, alebo asistent napojený na systém, ktorý už používate.</p>
+            </div>
+          </article>
+          <article class="faq-item" data-faq data-open="false">
+            <h3>
+              <button type="button" aria-expanded="false">
+                <span data-i18n="faq.2.q">Musia dáta odísť z mojich počítačov?</span>
+                <span class="plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" data-faq-panel hidden>
+              <p data-i18n="faq.2.a">Nie štandardne. Keď má niečo ostať lokálne, pomenujeme to hneď. Asistent, ktorý volá vonkajšiu službu, je samostatné rozhodnutie.</p>
+            </div>
+          </article>
+          <article class="faq-item" data-faq data-open="false">
+            <h3>
+              <button type="button" aria-expanded="false">
+                <span data-i18n="faq.3.q">Ako vyzerá prvý projekt?</span>
+                <span class="plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" data-faq-panel hidden>
+              <p data-i18n="faq.3.a">Jedna práca, jeden zdroj dát, jeden človek, ktorý to použije. To spustíme, potom rozhodneme, či to má rásť. Na začiatok stačí pár viet o tom, čo chcete zlepšiť.</p>
+            </div>
+          </article>
+          <article class="faq-item" data-faq data-open="false">
+            <h3>
+              <button type="button" aria-expanded="false">
+                <span data-i18n="faq.4.q">Sme v AI nástrojoch noví. Vadí to?</span>
+                <span class="plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" data-faq-panel hidden>
+              <p data-i18n="faq.4.a">To je bežný štart. Nastavenie zahŕňa ktorý nástroj, kde sedí v dni a čoho sa nemá dotknúť. Cieľ je zvyk, nie hromada účtov.</p>
+            </div>
+          </article>
+          <article class="faq-item" data-faq data-open="false">
+            <h3>
+              <button type="button" aria-expanded="false">
+                <span data-i18n="faq.5.q">Ako vám napíšem?</span>
+                <span class="plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" data-faq-panel hidden>
+              <p data-i18n="faq.5.a">Na ivanhybben@gmail.com. Formulár na stránke otvorí váš mailový program s predvyplnenou správou — správu odošlete vy.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact">
+          <div>
+            <p class="kicker" data-i18n="contact.kicker">Kontakt</p>
+            <h2 data-i18n="contact.h2">Napíšte, čo chcete zlepšiť.</h2>
+            <p class="lede" data-i18n="contact.lede">Som na Slovensku. Píšte odkiaľkoľvek — časové pásma zvládneme. Stačí krátka správa. Odoslaním formulára sa otvorí váš mailový program a predvyplní správu na ivanhybben@gmail.com. Nič sa neposiela zo stránky — odošlete to vy.</p>
+            <div class="contact-list">
+              <div>
+                <span data-i18n="contact.email">Email</span>
+                <a href="mailto:ivanhybben@gmail.com">ivanhybben@gmail.com</a>
+              </div>
+              <div class="where">
+                <span data-i18n="contact.location">Kde som</span>
+                <p class="place" data-i18n="contact.remote">Slovensko</p>
+                <p class="place-note" data-i18n="contact.anywhere">Píšte odkiaľkoľvek. Práca na diaľku je predvolená.</p>
+              </div>
+            </div>
+          </div>
+          <div class="contact-side">
+            <div class="offer-row">
+              <article class="mini">
+                <h3 data-i18n="contact.offer1.t">Prvý rozhovor</h3>
+                <p data-i18n="contact.offer1.p">30 minút. Čo berie čas a koho to zaťažuje?</p>
+              </article>
+              <article class="mini">
+                <h3 data-i18n="contact.offer2.t">Stačí odsek</h3>
+                <p data-i18n="contact.offer2.p">Čo sa opakuje a čo by malo ísť ľahšie.</p>
+              </article>
+            </div>
+            <form data-form>
+              <label class="field">
+                <span data-i18n="contact.name">Meno</span>
+                <input name="name" autocomplete="name" data-i18n-placeholder="contact.name.ph" placeholder="Vaše meno (voliteľné)">
+              </label>
+              <label class="field">
+                <span data-i18n="contact.note">Čo chcete zlepšiť</span>
+                <textarea name="note" required data-i18n-placeholder="contact.note.ph" placeholder="Napíšte pár viet — čo sa opakuje, čo by malo ísť ľahšie."></textarea>
+              </label>
+              <button class="btn btn-lime" type="submit" data-i18n="contact.submit">Otvoriť email s touto správou</button>
+              <p class="form-hint" data-i18n="contact.hint">Otvorí sa váš mailový program. Správu odošlete vy — stránka nič neposiela.</p>
+              <p class="form-status" data-form-status role="status"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <p data-i18n="footer.copy">© 2026 Ivan Hybben. Slovensko · na diaľku.</p>
+    <p><a href="mailto:ivanhybben@gmail.com" data-i18n="footer.mail">ivanhybben@gmail.com</a></p>
+  </footer>
+
+  <script>
+const I18N_KEY = "ih-lang";
+const CONTACT_EMAIL = "ivanhybben@gmail.com";
+
+const SITE = {
+  sk: {
+    "meta.title": "Ivan Hybben — jednoduchšie denné úlohy vo firme",
+    "meta.desc": "Ivan Hybben pomáha malým firmám a tímom zbaviť sa opakujúcej sa rutiny: reporty, schránka, odpovede z vašich dát a nastavenie AI nástrojov, ktoré ľudia naozaj otvoria. Slovensko · na diaľku.",
+    "nav.services": "Služby",
+    "nav.process": "Ako to ide",
+    "nav.about": "O mne",
+    "nav.faq": "Otázky",
+    "nav.audit": "Audit",
+    "nav.contact": "Kontakt",
+    "nav.talk": "Napíšte mi",
+    "nav.menu": "Menu",
+    "hero.kicker": "",
+    "hero.h1.a": "Report. Schránka. Tá istá otázka.",
+    "hero.h1.b": "Nastavím to",
+    "hero.h1.c": "tak, aby to už nebolo ručne.",
+    "hero.deck": "Každý týždeň to isté kopírujete, triedite alebo vysvetľujete. Na tú úlohu dám jednoduchý systém a krátky návod, ako ho spustiť.",
+    "hero.cta.audit": "Spustiť pracovný audit",
+    "hero.cta.talk": "Napísať, čo chcem zlepšiť",
+    "hero.cta.audit.note": "Audit je samostatný súbor audit-send.html — pošlite ho spolu s touto stránkou.",
+    "proof.1.t": "Najprv úloha",
+    "proof.1.p": "Najprv pomenujeme, čo vás brzdí. Až potom vyberieme nástroj.",
+    "proof.2.t": "Z vašich dát",
+    "proof.2.p": "Asistent odpovie z toho, čo už máte — alebo povie, že to nevidí.",
+    "proof.3.t": "S odovzdaním",
+    "proof.3.p": "Ostane vám nastavenie a krátky návod, ako to spustiť bezo mňa.",
+    "ticker": "Automatizácie vo firme ✦ Asistent z vašich dát ✦ Dashboardy, ktoré sa obnovujú ✦ AI nástroje, ktoré tím otvorí ✦ Slovensko · na diaľku ✦ Odovzdanie, nie čierna skrinka",
+    "fit.index": "01",
+    "fit.h2": "Úlohy, ktoré sa oplatí zjednodušiť.",
+    "fit.lede": "Tieto tri situácie vidím najčastejšie. Ak je jedna z nich vaša, zvyšok stránky ukazuje, ako na to.",
+    "fit.1.t": "Pondelkový report",
+    "fit.1.p": "Niekto znova skladá ten istý prehľad ručne. Čísla už existujú. Stránka by ich mala ukázať sama — a aj zajtra.",
+    "fit.2.t": "Odpovede z hlavy",
+    "fit.2.p": "Ľudia sa pýtajú to isté. Asistent by mal odpovedať z vášho systému — alebo povedať, že údaj nevidí.",
+    "fit.3.t": "Stále to isté ručne",
+    "fit.3.p": "Pondelkový report sa stále kopíruje z tabuliek. Schránku niekto triedi ručne. Na tú istú otázku vie odpoveď len jeden kolega. Na tú konkrétnu úlohu dám jednoduché nastavenie a krátky návod, ako to spustiť.",
+    "svc.index": "02",
+    "svc.h2": "Čo pre vás viem spraviť.",
+    "svc.lede": "Od krátkeho auditu po bežiaci kúsok. Vyberiete, čo vás brzdí — dostanete niečo, čo tím otvorí.",
+    "svc.1.t": "AI nástroje pre tím",
+    "svc.1.p": "Ktorý nástroj, kde sedí v dni a čoho sa nemá dotknúť. Nastavenie vnútri práce, nie vedľa nej.",
+    "svc.1.l1": "Mapovanie pracovného postupu",
+    "svc.1.l2": "Výber nástroja a hranice",
+    "svc.1.l3": "Nastavenie so tímom",
+    "svc.1.l4": "Krátke odovzdanie",
+    "svc.1.leave": "nastavenie, ktoré niekto naozaj otvorí, a stránku s návodom.",
+    "svc.1.cta": "Začať tu",
+    "svc.2.t": "Automatizácie vo firme",
+    "svc.2.p": "Opakujúce sa reporty, follow-upy a odovzdávky. Menej ručného skladania, menej zabudnutých krokov.",
+    "svc.2.l1": "Schránka a triáž",
+    "svc.2.l2": "Reporty s obnovou",
+    "svc.2.l3": "Follow-upy, ktoré nezapadnú",
+    "svc.2.l4": "Odovzdávky medzi ľuďmi",
+    "svc.2.leave": "bežiaci postup a kroky, ako ho udržať.",
+    "svc.2.cta": "Automatizovať úlohu",
+    "svc.3.t": "Asistent z vašich dát",
+    "svc.3.p": "Pomocník, ktorý odpovie z tabuliek, CRM alebo iného systému, ktorý už používate. Heslo ostáva mimo chatu. Keď údaj nevidí, povie to.",
+    "svc.3.l1": "Jasná úloha asistenta",
+    "svc.3.l2": "Pripojenie k vašim dátam",
+    "svc.3.l3": "Prihlásenie mimo chatu",
+    "svc.3.l4": "Otázky, ktoré ľudia naozaj kladú",
+    "svc.3.leave": "asistenta, pripojenie a otázky, na ktoré smie odpovedať.",
+    "svc.3.cta": "Nastaviť asistenta",
+    "leave": "Odnesiete si",
+    "skills.h2": "Ako to vyzerá v bežný deň.",
+    "skills.lede": "Konkrétne kúsky, nie agentúrny predaj.",
+    "skills.1": "Pondelkový report, ktorý sa obnoví sám",
+    "skills.2": "Triedenie schránky so zdrojom a hranicou",
+    "skills.3": "Poznámky zo stretnutia premenené na úlohy",
+    "skills.4": "Vedomosti tímu, na ktoré sa dá spýtať",
+    "skills.5": "Nastavenie nástrojov tak, aby ich ľudia otvorili",
+    "skills.6": "Asistent, ktorý odpovie z vašich dát",
+    "proc.index": "03",
+    "proc.h2": "Ako projekt reálne postupuje.",
+    "proc.lede": "Dosť malý na skúšku, dosť hotový na odovzdanie.",
+    "proc.1.t": "Pomenovať prácu",
+    "proc.1.p": "Aké rozhodnutie alebo opakujúca sa úloha má byť ľahšia? Pomenujeme dáta, ľudí a čo znamená hotovo.",
+    "proc.2.t": "Malý prvý kúsok",
+    "proc.2.p": "Nastavenie, asistent s jedným skutočným pripojením, alebo postup, ktorý jeden človek skúsi tento týždeň.",
+    "proc.3.t": "Poriadne napojiť",
+    "proc.3.p": "Prístup na vašej strane, hranice a kroky, ktoré zvládne aj niekto iný.",
+    "proc.4.t": "Nechať bežať",
+    "proc.4.p": "Dokumentácia, odovzdanie a krátke doladenie, keď skutočné použitie ukáže, čo opraviť.",
+    "rules.index": "04",
+    "rules.h2": "Malý systém, ktorému ľudia veria.",
+    "rules.lede": "Toto sú pravidlá. Platí ich aj firemná práca.",
+    "rules.1": "Vidieť zdroj.",
+    "rules.1.p": " Asistent odpovedá zo systému, alebo povie, že nevie. Odpoveď z hádania neposielam.",
+    "rules.2": "Prihlásenie mimo chatu.",
+    "rules.2.p": " Heslá ostanú v jednorazovom prihlásení. Chat ich nikdy neuvidí.",
+    "rules.3": "Označiť, čo ostáva na človeku.",
+    "rules.3.p": " Niektoré kroky sa nemajú automatizovať. Pomenujeme ich skôr, než niečo zapojíme.",
+    "rules.4": "Súbory ostávajú u vás.",
+    "rules.4.p": " Nastavenie, asistent a návod ostávajú na vašej strane.",
+    "about.kicker": "O mne",
+    "about.caption": "Softvérový inžinier zo Slovenska. Mám rád výsledok, na ktorý ukážete v utorok.",
+    "about.tag": "Partner na prácu, ktorá naozaj beží",
+    "about.p1": "Staviam jednoduchú vrstvu, vďaka ktorej je AI užitočná. Stránka, ktorá sa dnes ráno obnovila. Asistent, ktorý odpovedal z živých dát. Kolega, ktorý to spustí aj bez mňa. Pracujem zo Slovenska s ľuďmi odkiaľkoľvek.",
+    "about.p2": "Začínam od úlohy, nie od nástroja. Keď je jasné, čo sa má stať ľahšie, nastavím alebo postavím ten najmenší kúsok, ktorý tím otvorí — a odovzdám ho tak, aby bežal aj bezo mňa.",
+    "chip.1": "AI nastavenie pre tím",
+    "chip.2": "Automatizácie vo firme",
+    "chip.3": "Asistent z vašich dát",
+    "chip.4": "Dashboardy s obnovou",
+    "chip.5": "Lokálne, keď na tom záleží",
+    "chip.6": "Dokumentácia na odovzdanie",
+    "faq.index": "05",
+    "faq.h2": "Otázky, ktoré stoja za to položiť skôr.",
+    "faq.1.q": "Čo konkrétne odovzdáte?",
+    "faq.1.a": "Bežiaci kúsok a návod, ako ho udržať. Môže to byť nastavenie AI v nástrojoch, ktoré už máte, automatizovaný report, alebo asistent napojený na systém, ktorý už používate.",
+    "faq.2.q": "Musia dáta odísť z mojich počítačov?",
+    "faq.2.a": "Nie štandardne. Keď má niečo ostať lokálne, pomenujeme to hneď. Asistent, ktorý volá vonkajšiu službu, je samostatné rozhodnutie.",
+    "faq.3.q": "Ako vyzerá prvý projekt?",
+    "faq.3.a": "Jedna práca, jeden zdroj dát, jeden človek, ktorý to použije. To spustíme, potom rozhodneme, či to má rásť. Na začiatok stačí pár viet o tom, čo chcete zlepšiť.",
+    "faq.4.q": "Sme v AI nástrojoch noví. Vadí to?",
+    "faq.4.a": "To je bežný štart. Nastavenie zahŕňa ktorý nástroj, kde sedí v dni a čoho sa nemá dotknúť. Cieľ je zvyk, nie hromada účtov.",
+    "faq.5.q": "Ako vám napíšem?",
+    "faq.5.a": "Na ivanhybben@gmail.com. Formulár na stránke otvorí váš mailový program s predvyplnenou správou — správu odošlete vy.",
+    "contact.kicker": "Kontakt",
+    "contact.h2": "Napíšte, čo chcete zlepšiť.",
+    "contact.lede": "Som na Slovensku. Píšte odkiaľkoľvek — časové pásma zvládneme. Stačí krátka správa. Odoslaním formulára sa otvorí váš mailový program a predvyplní správu na ivanhybben@gmail.com. Nič sa neposiela zo stránky — odošlete to vy.",
+    "contact.email": "Email",
+    "contact.location": "Kde som",
+    "contact.remote": "Slovensko",
+    "contact.anywhere": "Píšte odkiaľkoľvek. Práca na diaľku je predvolená.",
+    "contact.offer1.t": "Prvý rozhovor",
+    "contact.offer1.p": "30 minút. Čo berie čas a koho to zaťažuje?",
+    "contact.offer2.t": "Stačí odsek",
+    "contact.offer2.p": "Čo sa opakuje a čo by malo ísť ľahšie.",
+    "contact.name": "Meno",
+    "contact.name.ph": "Vaše meno (voliteľné)",
+    "contact.note": "Čo chcete zlepšiť",
+    "contact.note.ph": "Napíšte pár viet — čo sa opakuje, čo by malo ísť ľahšie.",
+    "contact.submit": "Otvoriť email s touto správou",
+    "contact.hint": "Otvorí sa váš mailový program. Správu odošlete vy — stránka nič neposiela.",
+    "contact.saved": "Mailový program by sa mal otvoriť. Ak nie, napíšte priamo na ivanhybben@gmail.com.",
+    "contact.saved.name": "Mailový program by sa mal otvoriť, {name}. Ak nie, napíšte priamo na ivanhybben@gmail.com.",
+    "contact.mail.subject": "Čo chcem zlepšiť",
+    "contact.mail.body": "Meno: {name}\n\nČo chcem zlepšiť:\n{note}\n",
+    "footer.copy": "© {year} Ivan Hybben. Slovensko · na diaľku.",
+    "footer.mail": "ivanhybben@gmail.com",
+    "skip": "Preskočiť na obsah",
+  },
+  en: {
+    "meta.title": "Ivan Hybben — simpler daily work for businesses",
+    "meta.desc": "Ivan Hybben helps small companies and teams shed repeating chores: reports, inbox, answers from your own data, and AI tool setup people actually open. Based in Slovakia — write from anywhere.",
+    "nav.services": "Services",
+    "nav.process": "How it works",
+    "nav.about": "About",
+    "nav.faq": "FAQ",
+    "nav.audit": "Audit",
+    "nav.contact": "Contact",
+    "nav.talk": "Write to me",
+    "nav.menu": "Menu",
+    "hero.kicker": "",
+    "hero.h1.a": "The report. The inbox. The same question.",
+    "hero.h1.b": "I set it up",
+    "hero.h1.c": "so it is not manual anymore.",
+    "hero.deck": "Every week you copy, sort, or explain the same thing. I put a simple system on that task and leave a short note on how to run it.",
+    "hero.cta.audit": "Take the work audit",
+    "hero.cta.talk": "Tell me what to improve",
+    "hero.cta.audit.note": "The audit is a separate file, audit-send.html — send it together with this page.",
+    "proof.1.t": "Job first",
+    "proof.1.p": "We name what is slowing you down. Only then do we pick a tool.",
+    "proof.2.t": "From your data",
+    "proof.2.p": "A helper answers from what you already have — or it says it cannot see it.",
+    "proof.3.t": "Handover included",
+    "proof.3.p": "You keep the setup and a short way to run it without me.",
+    "ticker": "Business automations ✦ A helper from your data ✦ Dashboards that refresh ✦ AI tools a team will open ✦ Slovakia · remote ✦ Handover, not a black box",
+    "fit.index": "01",
+    "fit.h2": "The chores worth simplifying.",
+    "fit.lede": "These three situations show up most. If one of them is yours, the rest of the page is the method.",
+    "fit.1.t": "The Monday report",
+    "fit.1.p": "Someone rebuilds the same overview by hand. The numbers already exist. The page should show them — and still be current tomorrow.",
+    "fit.2.t": "Answers from memory",
+    "fit.2.p": "People ask the same questions. A helper should answer from your system — or say it cannot see the data.",
+    "fit.3.t": "Still doing it by hand",
+    "fit.3.p": "The Monday report is still copied out of spreadsheets. Someone still sorts the inbox by hand. The same question still lives in one colleague’s head. I put a simple setup on that exact task and leave a short note on how to run it.",
+    "svc.index": "02",
+    "svc.h2": "What I can do for you.",
+    "svc.lede": "From a short audit to a running slice. Pick what is slowing you down — leave with something the team opens.",
+    "svc.1.t": "AI tools for a team",
+    "svc.1.p": "Which tool, where it sits in the day, and what it must not touch. Setup inside the work, not beside it.",
+    "svc.1.l1": "Workflow mapping",
+    "svc.1.l2": "Tool choice and boundaries",
+    "svc.1.l3": "Hands-on setup with the team",
+    "svc.1.l4": "A short handover",
+    "svc.1.leave": "a setup someone actually opens, and a page that says how to run it.",
+    "svc.1.cta": "Start here",
+    "svc.2.t": "Business automations",
+    "svc.2.p": "Repeating reports, follow-ups, and handoffs. Less manual rebuild, fewer forgotten steps.",
+    "svc.2.l1": "Inbox triage",
+    "svc.2.l2": "Reports that refresh",
+    "svc.2.l3": "Follow-ups that stick",
+    "svc.2.l4": "Handoffs between people",
+    "svc.2.leave": "a running workflow and the steps to keep it.",
+    "svc.2.cta": "Automate a chore",
+    "svc.3.t": "A helper from your data",
+    "svc.3.p": "A helper that answers from spreadsheets, CRM, or another system you already use. The password stays out of the chat. If it cannot see the data, it says so.",
+    "svc.3.l1": "A clear helper role",
+    "svc.3.l2": "A live data connection",
+    "svc.3.l3": "Login kept out of the chat",
+    "svc.3.l4": "Questions people actually ask",
+    "svc.3.leave": "a helper, a connection, and the questions it may answer.",
+    "svc.3.cta": "Set up a helper",
+    "leave": "You leave with",
+    "skills.h2": "What that looks like on a Tuesday.",
+    "skills.lede": "Concrete slices, not an agency pitch.",
+    "skills.1": "A Monday report that refreshes itself",
+    "skills.2": "Inbox triage with a source and a boundary",
+    "skills.3": "Meeting notes turned into actions",
+    "skills.4": "Team knowledge people can ask",
+    "skills.5": "Tool setup so accounts actually get opened",
+    "skills.6": "A helper that answers from your data",
+    "proc.index": "03",
+    "proc.h2": "How a project actually moves.",
+    "proc.lede": "Small enough to try, finished enough to hand over.",
+    "proc.1.t": "Name the job",
+    "proc.1.p": "What decision or repeating chore should get easier? We name the data, the people, and what done looks like.",
+    "proc.2.t": "Build a thin slice",
+    "proc.2.p": "A setup, a helper with one real connection, or a workflow one person can try this week.",
+    "proc.3.t": "Connect it properly",
+    "proc.3.p": "Access on your side, clear boundaries, and steps someone else can follow.",
+    "proc.4.t": "Leave it running",
+    "proc.4.p": "Docs, a handover, and a short stretch of tightening once real use shows what to fix.",
+    "rules.index": "04",
+    "rules.h2": "A small system people trust.",
+    "rules.lede": "These are the constraints. They travel to business work.",
+    "rules.1": "See the source.",
+    "rules.1.p": " A helper answers from the system, or it says it cannot. A guess does not ship.",
+    "rules.2": "Keep the login out of the chat.",
+    "rules.2.p": " Passwords stay in a one-time login. The thread never sees them.",
+    "rules.3": "Mark what stays human.",
+    "rules.3.p": " Some steps should not be automated. We name them before anything is wired.",
+    "rules.4": "Leave the files with you.",
+    "rules.4.p": " The setup, the helper, and the notes stay on your side.",
+    "about.kicker": "About",
+    "about.caption": "Software engineer based in Slovakia. I like a result you can point at on a Tuesday.",
+    "about.tag": "Your partner for work that actually runs",
+    "about.p1": "I build the unglamorous layer that makes AI useful. A page that updated this morning. A helper that answered from live data. A colleague who can run it without me. I work from Slovakia with people anywhere.",
+    "about.p2": "I start from the job, not the tool. Once it is clear what should get easier, I set up or build the smallest slice the team will open — and hand it over so it runs without me.",
+    "chip.1": "AI setup for a team",
+    "chip.2": "Business automations",
+    "chip.3": "A helper from your data",
+    "chip.4": "Dashboards that refresh",
+    "chip.5": "Local when it matters",
+    "chip.6": "Handover docs",
+    "faq.index": "05",
+    "faq.h2": "Questions worth asking first.",
+    "faq.1.q": "What do you actually deliver?",
+    "faq.1.a": "A working slice and the path to keep it. That might be an AI setup in tools you already use, an automated report, or a helper connected to a system you already run.",
+    "faq.2.q": "Does the data have to leave my machines?",
+    "faq.2.a": "Not by default. If something should stay local, we name that early. A helper that calls an outside service is a separate choice.",
+    "faq.3.q": "What does a first project look like?",
+    "faq.3.a": "One job, one source of data, one person who will use it. We get that running, then decide whether it should grow. A few sentences about what you want to improve is enough to start.",
+    "faq.4.q": "We are new to AI tools. Is that a problem?",
+    "faq.4.a": "That is a normal starting point. The setup includes which tool, where it sits in the day, and what it should refuse to touch. The goal is a habit, not a pile of accounts.",
+    "faq.5.q": "How do I reach you?",
+    "faq.5.a": "ivanhybben@gmail.com. The form on this page opens your mail app with a prefilled message — you send it.",
+    "contact.kicker": "Contact",
+    "contact.h2": "Tell me what you want to improve.",
+    "contact.lede": "Based in Slovakia. Write from anywhere — timezones are fine. A short note is enough. Submitting the form opens your mail app with a message to ivanhybben@gmail.com. Nothing is sent from this page — you send it.",
+    "contact.email": "Email",
+    "contact.location": "Where I am",
+    "contact.remote": "Slovakia",
+    "contact.anywhere": "Write from anywhere. Remote is the default.",
+    "contact.offer1.t": "First conversation",
+    "contact.offer1.p": "30 minutes. What is taking time, and who feels it?",
+    "contact.offer2.t": "A short note is enough",
+    "contact.offer2.p": "What repeats, and what should get easier.",
+    "contact.name": "Name",
+    "contact.name.ph": "Your name (optional)",
+    "contact.note": "What you want to improve",
+    "contact.note.ph": "A few sentences — what repeats, what should get easier.",
+    "contact.submit": "Open email with this message",
+    "contact.hint": "Your mail app will open. You send the message — this page sends nothing.",
+    "contact.saved": "Your mail app should open. If it does not, write directly to ivanhybben@gmail.com.",
+    "contact.saved.name": "Your mail app should open, {name}. If it does not, write directly to ivanhybben@gmail.com.",
+    "contact.mail.subject": "What I want to improve",
+    "contact.mail.body": "Name: {name}\n\nWhat I want to improve:\n{note}\n",
+    "footer.copy": "© {year} Ivan Hybben. Slovakia · remote.",
+    "footer.mail": "ivanhybben@gmail.com",
+    "skip": "Skip to content",
+  },
+};
+
+function getLang() {
+  const saved = localStorage.getItem(I18N_KEY);
+  return saved === "en" || saved === "sk" ? saved : "sk";
+}
+
+function setLang(lang) {
+  localStorage.setItem(I18N_KEY, lang);
+  applyLang(lang);
+}
+
+function t(key, lang = getLang()) {
+  return SITE[lang]?.[key] ?? SITE.en[key] ?? key;
+}
+
+function applyLang(lang) {
+  const dict = SITE[lang] || SITE.sk;
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    const key = node.getAttribute("data-i18n");
+    let value = dict[key];
+    if (value == null) return;
+    if (key === "footer.copy") value = value.replace("{year}", String(new Date().getFullYear()));
+    if (node.dataset.i18nHtml === "true") node.innerHTML = value;
+    else node.textContent = value;
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((node) => {
+    const key = node.getAttribute("data-i18n-placeholder");
+    if (dict[key] != null) node.setAttribute("placeholder", dict[key]);
+  });
+  document.querySelectorAll("[data-i18n-aria]").forEach((node) => {
+    const key = node.getAttribute("data-i18n-aria");
+    if (dict[key] != null) node.setAttribute("aria-label", dict[key]);
+  });
+  const title = dict["meta.title"];
+  const desc = dict["meta.desc"];
+  if (title) document.title = title;
+  const meta = document.querySelector('meta[name="description"]');
+  if (meta && desc) meta.setAttribute("content", desc);
+
+  document.querySelectorAll("[data-lang]").forEach((btn) => {
+    const active = btn.getAttribute("data-lang") === lang;
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+    btn.classList.toggle("is-active", active);
+  });
+
+  document.dispatchEvent(new CustomEvent("ih:lang", { detail: { lang } }));
+}
+
+function bindLangSwitch() {
+  document.querySelectorAll("[data-lang]").forEach((btn) => {
+    btn.addEventListener("click", () => setLang(btn.getAttribute("data-lang")));
+  });
+}
+
+window.IH = { getLang, setLang, t, applyLang, bindLangSwitch, SITE, I18N_KEY, CONTACT_EMAIL };
+
+</script>
+  <script>
+const SKETCHES = {
+  sk: [
+    {
+      id: "inbox",
+      title: "inbox-triage",
+      foot: "Náčrt — bez skutočných e-mailov",
+      float1: "Hranica nastavená",
+      float2: "Človek <b>stále posiela</b>",
+      body: `
+        <div class="sketch-stack">
+          <div class="mail-row"><span class="tag-soft">Triáž</span><b>Faktúra · dodávateľ</b><small>Pripraviť návrh odpovede</small></div>
+          <div class="mail-row mute"><span class="tag-soft">Preskočiť</span><b>Newsletter · nástroj</b><small>Bez zákazníka, bez termínu</small></div>
+          <div class="mail-row"><span class="tag-soft">Ľudské</span><b>Žiadosť · klient</b><small>Asistent pripraví. Človek odošle.</small></div>
+        </div>`,
+    },
+    {
+      id: "monday",
+      title: "monday-report",
+      foot: "Obnova namiesto ručného exportu",
+      float1: "Obnova podľa plánu",
+      float2: "Jeden <b>pohľad</b>",
+      body: `
+        <div class="lanes full">
+          <div class="lane"><span>Pondelkový report</span>
+            <div class="bars tall" aria-hidden="true"><i style="--h:55%"></i><i style="--h:70%"></i><i class="on" style="--h:88%"></i><i style="--h:42%"></i><i style="--h:63%"></i><i style="--h:77%"></i></div>
+          </div>
+          <p class="bubble ask">Skladá sa to stále ručne?</p>
+          <p class="bubble answer">Nie — stránka sa obnoví. Čísla už existovali.</p>
+        </div>`,
+    },
+    {
+      id: "lookup",
+      title: "data-helper",
+      foot: "Odpoveď z vašich dát, alebo „neviem“",
+      float1: "Musí sa pozrieť",
+      float2: "Bez <b>hádania</b>",
+      body: `
+        <div class="lanes full">
+          <p class="bubble ask">Aký je stav objednávky 1842?</p>
+          <p class="bubble answer">Pozrel som CRM. Stav: odoslané · 21. 9.</p>
+          <p class="bubble ask">A čo zľava pre nového klienta?</p>
+          <p class="bubble answer dim">V zdroji nevidím pravidlá. Nechám to na človeka.</p>
+        </div>`,
+    },
+    {
+      id: "followup",
+      title: "follow-up",
+      foot: "Náčrt — pripomienka nezapadne",
+      float1: "Termín sledovaný",
+      float2: "Človek <b>rozhodne</b>",
+      body: `
+        <div class="sketch-stack">
+          <div class="mail-row"><span class="tag-soft">Dnes</span><b>Ponuka · čaká 5 dní</b><small>Pripraviť krátky follow-up</small></div>
+          <div class="mail-row"><span class="tag-soft">Zajtra</span><b>Handoff · kolega</b><small>Zhrnutie stavu do poznámky</small></div>
+          <div class="mail-row mute"><span class="tag-soft">Hotovo</span><b>Faktúra · potvrdená</b><small>Bez ďalšej akcie</small></div>
+        </div>`,
+    },
+  ],
+  en: [
+    {
+      id: "inbox",
+      title: "inbox-triage",
+      foot: "Sketch — no real mail",
+      float1: "Boundary set",
+      float2: "A person <b>still sends</b>",
+      body: `
+        <div class="sketch-stack">
+          <div class="mail-row"><span class="tag-soft">Triage</span><b>Invoice · vendor</b><small>Draft a reply</small></div>
+          <div class="mail-row mute"><span class="tag-soft">Skip</span><b>Newsletter · tool</b><small>No customer, no deadline</small></div>
+          <div class="mail-row"><span class="tag-soft">Human</span><b>Request · client</b><small>Helper prepares. Person sends.</small></div>
+        </div>`,
+    },
+    {
+      id: "monday",
+      title: "monday-report",
+      foot: "Refresh instead of a manual export",
+      float1: "Scheduled refresh",
+      float2: "One <b>view</b>",
+      body: `
+        <div class="lanes full">
+          <div class="lane"><span>Monday report</span>
+            <div class="bars tall" aria-hidden="true"><i style="--h:55%"></i><i style="--h:70%"></i><i class="on" style="--h:88%"></i><i style="--h:42%"></i><i style="--h:63%"></i><i style="--h:77%"></i></div>
+          </div>
+          <p class="bubble ask">Still rebuilt by hand?</p>
+          <p class="bubble answer">No — the page refreshes. The numbers already existed.</p>
+        </div>`,
+    },
+    {
+      id: "lookup",
+      title: "data-helper",
+      foot: "Answer from your data, or “I can’t see it”",
+      float1: "Has to look",
+      float2: "No <b>guessing</b>",
+      body: `
+        <div class="lanes full">
+          <p class="bubble ask">What’s the status of order 1842?</p>
+          <p class="bubble answer">I checked CRM. Status: shipped · 21 Sep.</p>
+          <p class="bubble ask">And the discount for a new client?</p>
+          <p class="bubble answer dim">I don’t see a policy in the source. Leaving that to a person.</p>
+        </div>`,
+    },
+    {
+      id: "followup",
+      title: "follow-up",
+      foot: "Sketch — a reminder that sticks",
+      float1: "Deadline tracked",
+      float2: "A person <b>decides</b>",
+      body: `
+        <div class="sketch-stack">
+          <div class="mail-row"><span class="tag-soft">Today</span><b>Offer · waiting 5 days</b><small>Draft a short follow-up</small></div>
+          <div class="mail-row"><span class="tag-soft">Tomorrow</span><b>Handoff · colleague</b><small>Status summary into a note</small></div>
+          <div class="mail-row mute"><span class="tag-soft">Done</span><b>Invoice · confirmed</b><small>No further action</small></div>
+        </div>`,
+    },
+  ],
+};
+
+function initSketches() {
+  const root = document.querySelector("[data-sketches]");
+  if (!root) return;
+  const body = root.querySelector("[data-sketch-body]");
+  const title = root.querySelector("[data-sketch-title]");
+  const foot = root.querySelector("[data-sketch-foot]");
+  const float1 = root.querySelector("[data-sketch-float1]");
+  const float2 = root.querySelector("[data-sketch-float2]");
+  const dots = root.querySelector("[data-sketch-dots]");
+  const live = root.querySelector("[data-sketch-live]");
+  let index = 0;
+  let timer;
+
+  function list() {
+    const lang = window.IH?.getLang?.() || "sk";
+    return SKETCHES[lang] || SKETCHES.en;
+  }
+
+  function paint(i) {
+    const items = list();
+    index = ((i % items.length) + items.length) % items.length;
+    const sketch = items[index];
+    root.classList.add("is-swap");
+    window.setTimeout(() => {
+      title.textContent = sketch.title;
+      foot.textContent = sketch.foot;
+      float1.innerHTML = `<i></i> ${sketch.float1}`;
+      float2.innerHTML = sketch.float2;
+      body.innerHTML = sketch.body;
+      dots.querySelectorAll("button").forEach((btn, n) => {
+        btn.setAttribute("aria-current", n === index ? "true" : "false");
+      });
+      root.classList.remove("is-swap");
+    }, 180);
+  }
+
+  function buildDots() {
+    dots.replaceChildren();
+    list().forEach((sketch, n) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("aria-label", sketch.title);
+      btn.addEventListener("click", () => {
+        paint(n);
+        restart();
+      });
+      dots.append(btn);
+    });
+  }
+
+  function restart() {
+    window.clearInterval(timer);
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    timer = window.setInterval(() => paint(index + 1), 5200);
+  }
+
+  if (live) live.textContent = (window.IH?.getLang?.() || "sk") === "sk" ? "Živý náčrt" : "Live sketch";
+  buildDots();
+  paint(0);
+  restart();
+  document.addEventListener("ih:lang", () => {
+    if (live) live.textContent = (window.IH?.getLang?.() || "sk") === "sk" ? "Živý náčrt" : "Live sketch";
+    buildDots();
+    paint(index);
+    restart();
+  });
+}
+
+window.IH_SKETCHES = { initSketches, SKETCHES };
+
+</script>
+  <script>
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+window.IH?.bindLangSwitch?.();
+window.IH?.applyLang?.(window.IH.getLang());
+
+function paintTicker() {
+  const root = document.querySelector("[data-ticker]");
+  if (!root || !window.IH) return;
+  const raw = window.IH.t("ticker");
+  const parts = raw.split("✦").map((part) => part.trim()).filter(Boolean);
+  const track = document.createElement("div");
+  track.className = "ticker-track";
+  const render = [...parts, ...parts];
+  render.forEach((text, i) => {
+    const span = document.createElement("span");
+    span.textContent = text;
+    track.append(span);
+    if (i < render.length - 1) {
+      const sep = document.createElement("b");
+      sep.textContent = "✦";
+      track.append(sep);
+    }
+  });
+  root.replaceChildren(track);
+}
+
+paintTicker();
+document.addEventListener("ih:lang", paintTicker);
+
+const photo = document.querySelector(".portrait-photo");
+if (photo) {
+  const showPhoto = () => {
+    photo.hidden = false;
+    photo.closest(".portrait")?.classList.add("has-photo");
+  };
+  photo.addEventListener("load", showPhoto);
+  if (photo.complete && photo.naturalWidth > 0) showPhoto();
+}
+
+const nav = document.querySelector("[data-nav]");
+const toggle = document.querySelector("[data-nav-toggle]");
+const progress = document.querySelector("[data-progress]");
+const form = document.querySelector("[data-form]");
+const status = document.querySelector("[data-form-status]");
+const links = [...document.querySelectorAll(".nav-links a[href^='#']")];
+const spotlight = document.querySelector("[data-spotlight]");
+
+function setMenu(open) {
+  nav.dataset.open = open ? "true" : "false";
+  toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  document.body.classList.toggle("nav-open", open);
+}
+
+toggle?.addEventListener("click", () => {
+  setMenu(nav.dataset.open !== "true");
+});
+
+nav?.addEventListener("click", (event) => {
+  if (event.target.closest("a")) setMenu(false);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") setMenu(false);
+});
+
+function onScroll() {
+  document.body.classList.toggle("is-scrolled", window.scrollY > 8);
+  if (progress) {
+    const height = document.documentElement.scrollHeight - window.innerHeight;
+    const value = height > 0 ? window.scrollY / height : 0;
+    progress.style.transform = `scaleX(${value})`;
+  }
+
+  const marker = window.scrollY + 140;
+  let current = links[0];
+  for (const link of links) {
+    const id = link.getAttribute("href").slice(1);
+    const section = document.getElementById(id);
+    if (section && section.offsetTop <= marker) current = link;
+  }
+  for (const link of links) {
+    if (link === current) link.setAttribute("aria-current", "true");
+    else link.removeAttribute("aria-current");
+  }
+}
+
+window.addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+
+document.querySelectorAll("[data-faq]").forEach((item) => {
+  const button = item.querySelector("button");
+  const panel = item.querySelector("[data-faq-panel]");
+  button.addEventListener("click", () => {
+    const wasOpen = item.dataset.open === "true";
+    document.querySelectorAll("[data-faq]").forEach((other) => {
+      other.dataset.open = "false";
+      other.querySelector("button").setAttribute("aria-expanded", "false");
+      other.querySelector("[data-faq-panel]").hidden = true;
+    });
+    if (!wasOpen) {
+      item.dataset.open = "true";
+      button.setAttribute("aria-expanded", "true");
+      panel.hidden = false;
+    }
+  });
+});
+
+form?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const data = new FormData(form);
+  const name = String(data.get("name") || "").trim();
+  const note = String(data.get("note") || "").trim();
+  const email = window.IH?.CONTACT_EMAIL || "ivanhybben@gmail.com";
+  const subject = window.IH?.t("contact.mail.subject") || "What I want to improve";
+  const body = (window.IH?.t("contact.mail.body") || "Name: {name}\n\nWhat I want to improve:\n{note}\n")
+    .replace("{name}", name || "—")
+    .replace("{note}", note || "—");
+  const href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  window.location.href = href;
+  if (status) {
+    status.textContent = name
+      ? (window.IH?.t("contact.saved.name") || "").replace("{name}", name)
+      : (window.IH?.t("contact.saved") || "");
+  }
+});
+
+const reveal = document.querySelectorAll("[data-reveal]");
+if (reduceMotion) {
+  reveal.forEach((node) => node.classList.add("is-in"));
+} else if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add("is-in");
+        observer.unobserve(entry.target);
+      }
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+  );
+  reveal.forEach((node) => observer.observe(node));
+} else {
+  reveal.forEach((node) => node.classList.add("is-in"));
+}
+
+if (spotlight && !reduceMotion) {
+  window.addEventListener(
+    "pointermove",
+    (event) => {
+      spotlight.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
+    },
+    { passive: true }
+  );
+}
+
+const tilt = document.querySelector("[data-tilt]");
+if (tilt && !reduceMotion) {
+  tilt.addEventListener("pointermove", (event) => {
+    const box = tilt.getBoundingClientRect();
+    const x = (event.clientX - box.left) / box.width - 0.5;
+    const y = (event.clientY - box.top) / box.height - 0.5;
+    tilt.style.transform = `perspective(1200px) rotateY(${x * 10}deg) rotateX(${y * -8}deg)`;
+  });
+  tilt.addEventListener("pointerleave", () => {
+    tilt.style.transform = "";
+  });
+}
+
+window.IH_SKETCHES?.initSketches?.();
+
+</script>
+</body>
+</html>

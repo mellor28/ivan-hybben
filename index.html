@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ivan Hybben — jednoduchšie denné úlohy vo firme</title>
+  <meta name="description" content="Ivan Hybben pomáha malým firmám a tímom zbaviť sa opakujúcej sa rutiny: reporty, schránka, odpovede z vašich dát a nastavenie AI nástrojov, ktoré ľudia naozaj otvoria. Slovensko · na diaľku.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body id="top">
+  <a class="skip" href="#services" data-i18n="skip">Preskočiť na obsah</a>
+  <div class="atmosphere" aria-hidden="true">
+    <span class="orb orb-a"></span>
+    <span class="orb orb-b"></span>
+    <span class="orb orb-c"></span>
+    <span class="grid-fade"></span>
+    <span class="noise"></span>
+  </div>
+  <div class="spotlight" data-spotlight aria-hidden="true"></div>
+  <div class="progress" data-progress></div>
+
+  <header class="nav" data-nav data-open="false">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">
+        <span class="mark" aria-hidden="true">IH</span>
+        <span>Ivan Hybben</span>
+      </a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="nav-links" data-i18n="nav.menu">Menu</button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#services" data-i18n="nav.services">Služby</a></li>
+        <li><a href="#process" data-i18n="nav.process">Ako to ide</a></li>
+        <li><a href="#about" data-i18n="nav.about">O mne</a></li>
+        <li><a href="#faq" data-i18n="nav.faq">Otázky</a></li>
+        <li><a href="audit.html" data-i18n="nav.audit">Audit</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Kontakt</a></li>
+      </ul>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="sk" aria-pressed="true">SK</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn btn-ink nav-cta" href="#contact" data-i18n="nav.talk">Napíšte mi</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-stage">
+      <div class="wrap hero">
+        <div class="hero-copy is-in" data-reveal>
+          <h1>
+            <span data-i18n="hero.h1.a">Report. Schránka. Tá istá otázka.</span>
+            <em data-i18n="hero.h1.b">Nastavím to</em>
+            <span data-i18n="hero.h1.c">tak, aby to už nebolo ručne.</span>
+          </h1>
+          <p class="deck" data-i18n="hero.deck">Každý týždeň to isté kopírujete, triedite alebo vysvetľujete. Na tú úlohu dám jednoduchý systém a krátky návod, ako ho spustiť.</p>
+          <div class="hero-actions">
+            <a class="btn btn-ink" href="audit.html" data-i18n="hero.cta.audit">Spustiť pracovný audit</a>
+            <a class="btn btn-ghost" href="#contact" data-i18n="hero.cta.talk">Napísať, čo chcem zlepšiť</a>
+          </div>
+        </div>
+
+        <aside class="console is-in" aria-label="Illustrative sketches" data-tilt data-reveal data-sketches>
+          <span class="console-orbit orbit-one"></span>
+          <span class="console-orbit orbit-two"></span>
+          <div class="console-top">
+            <span class="live"><i></i> <span data-sketch-live>Živý náčrt</span></span>
+            <span data-sketch-title>inbox-triage</span>
+          </div>
+          <div class="console-body" data-sketch-body>
+            <div class="sketch-stack">
+              <div class="mail-row"><span class="tag-soft">Triáž</span><b>Faktúra · dodávateľ</b><small>Pripraviť návrh odpovede</small></div>
+              <div class="mail-row mute"><span class="tag-soft">Preskočiť</span><b>Newsletter · nástroj</b><small>Bez zákazníka, bez termínu</small></div>
+              <div class="mail-row"><span class="tag-soft">Ľudské</span><b>Žiadosť · klient</b><small>Asistent pripraví. Človek odošle.</small></div>
+            </div>
+          </div>
+          <div class="console-foot">
+            <span class="sketch-badge">Sketch</span>
+            <span data-sketch-foot>Náčrt — bez skutočných e-mailov</span>
+          </div>
+          <div class="sketch-dots" data-sketch-dots></div>
+          <div class="console-float float-one" data-sketch-float1><i></i> Hranica nastavená</div>
+          <div class="console-float float-two" data-sketch-float2>Človek <b>stále posiela</b></div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="proof wrap" data-reveal>
+      <article>
+        <strong>01</strong>
+        <h3 data-i18n="proof.1.t">Najprv úloha</h3>
+        <p data-i18n="proof.1.p">Najprv pomenujeme, čo vás brzdí. Až potom vyberieme nástroj.</p>
+      </article>
+      <article>
+        <strong>02</strong>
+        <h3 data-i18n="proof.2.t">Z vašich dát</h3>
+        <p data-i18n="proof.2.p">Asistent odpovie z toho, čo už máte — alebo povie, že to nevidí.</p>
+      </article>
+      <article>
+        <strong>03</strong>
+        <h3 data-i18n="proof.3.t">S odovzdaním</h3>
+        <p data-i18n="proof.3.p">Ostane vám nastavenie a krátky návod, ako to spustiť bezo mňa.</p>
+      </article>
+    </div>
+
+    <div class="ticker" aria-hidden="true" data-ticker></div>
+
+    <section id="fit">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="index" data-i18n="fit.index">01</p>
+          <div>
+            <h2 data-i18n="fit.h2">Úlohy, ktoré sa oplatí zjednodušiť.</h2>
+            <p class="lede" data-i18n="fit.lede">Tieto tri situácie vidím najčastejšie. Ak je jedna z nich vaša, zvyšok stránky ukazuje, ako na to.</p>
+          </div>
+        </div>
+        <div class="fit-grid">
+          <article data-reveal>
+            <div class="icon-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 12h4l2-6 4 12 2-6h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="num">01</span>
+            <h3 data-i18n="fit.1.t">Pondelkový report</h3>
+            <p data-i18n="fit.1.p">Niekto znova skladá ten istý prehľad ručne. Čísla už existujú. Stránka by ich mala ukázať sama — a aj zajtra.</p>
+          </article>
+          <article data-reveal>
+            <div class="icon-box violet" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8 14h.01M12 14h.01M16 14h.01M7 18h10a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <span class="num">02</span>
+            <h3 data-i18n="fit.2.t">Odpovede z hlavy</h3>
+            <p data-i18n="fit.2.p">Ľudia sa pýtajú to isté. Asistent by mal odpovedať z vášho systému — alebo povedať, že údaj nevidí.</p>
+          </article>
+          <article data-reveal>
+            <div class="icon-box lime" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v3M12 18v3M5 8l2 1.5M17 14.5 19 16M5 16l2-1.5M17 9.5 19 8M8 12a4 4 0 1 0 8 0 4 4 0 0 0-8 0Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <span class="num">03</span>
+            <h3 data-i18n="fit.3.t">Stále to isté ručne</h3>
+            <p data-i18n="fit.3.p">Pondelkový report sa stále kopíruje z tabuliek. Schránku niekto triedi ručne. Na tú istú otázku vie odpoveď len jeden kolega. Na tú konkrétnu úlohu dám jednoduché nastavenie a krátky návod, ako to spustiť.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="index" data-i18n="svc.index">02</p>
+          <div>
+            <h2 data-i18n="svc.h2">Čo pre vás viem spraviť.</h2>
+            <p class="lede" data-i18n="svc.lede">Od krátkeho auditu po bežiaci kúsok. Vyberiete, čo vás brzdí — dostanete niečo, čo tím otvorí.</p>
+          </div>
+        </div>
+        <div class="services">
+          <article class="card" data-reveal>
+            <div class="icon-box" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5h6l2 3h8v11H4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 13h8M8 16h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </div>
+            <span class="num">01</span>
+            <h3 data-i18n="svc.1.t">AI nástroje pre tím</h3>
+            <p data-i18n="svc.1.p">Ktorý nástroj, kde sedí v dni a čoho sa nemá dotknúť. Nastavenie vnútri práce, nie vedľa nej.</p>
+            <ul>
+              <li data-i18n="svc.1.l1">Mapovanie pracovného postupu</li>
+              <li data-i18n="svc.1.l2">Výber nástroja a hranice</li>
+              <li data-i18n="svc.1.l3">Nastavenie so tímom</li>
+              <li data-i18n="svc.1.l4">Krátke odovzdanie</li>
+            </ul>
+            <p class="leave"><span data-i18n="leave">Odnesiete si</span> <span data-i18n="svc.1.leave">nastavenie, ktoré niekto naozaj otvorí, a stránku s návodom.</span></p>
+            <a class="btn btn-ghost" href="#contact" data-i18n="svc.1.cta">Začať tu</a>
+          </article>
+          <article class="card" data-reveal>
+            <div class="icon-box violet" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V5h16v14H4Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 15l3-3 2 2 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="num">02</span>
+            <h3 data-i18n="svc.2.t">Automatizácie vo firme</h3>
+            <p data-i18n="svc.2.p">Opakujúce sa reporty, follow-upy a odovzdávky. Menej ručného skladania, menej zabudnutých krokov.</p>
+            <ul>
+              <li data-i18n="svc.2.l1">Schránka a triáž</li>
+              <li data-i18n="svc.2.l2">Reporty s obnovou</li>
+              <li data-i18n="svc.2.l3">Follow-upy, ktoré nezapadnú</li>
+              <li data-i18n="svc.2.l4">Odovzdávky medzi ľuďmi</li>
+            </ul>
+            <p class="leave"><span data-i18n="leave">Odnesiete si</span> <span data-i18n="svc.2.leave">bežiaci postup a kroky, ako ho udržať.</span></p>
+            <a class="btn btn-ghost" href="#contact" data-i18n="svc.2.cta">Automatizovať úlohu</a>
+          </article>
+          <article class="card" data-reveal>
+            <div class="icon-box orange" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8 10h8M8 14h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M12 20c-4.4 0-8-3.1-8-7s3.6-7 8-7 8 3.1 8 7c0 1.6-.6 3-1.6 4.2L20 20l-4-.8c-1.2.5-2.6.8-4 .8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="num">03</span>
+            <h3 data-i18n="svc.3.t">Asistent z vašich dát</h3>
+            <p data-i18n="svc.3.p">Pomocník, ktorý odpovie z tabuliek, CRM alebo iného systému, ktorý už používate. Heslo ostáva mimo chatu. Keď údaj nevidí, povie to.</p>
+            <ul>
+              <li data-i18n="svc.3.l1">Jasná úloha asistenta</li>
+              <li data-i18n="svc.3.l2">Pripojenie k vašim dátam</li>
+              <li data-i18n="svc.3.l3">Prihlásenie mimo chatu</li>
+              <li data-i18n="svc.3.l4">Otázky, ktoré ľudia naozaj kladú</li>
+            </ul>
+            <p class="leave"><span data-i18n="leave">Odnesiete si</span> <span data-i18n="svc.3.leave">asistenta, pripojenie a otázky, na ktoré smie odpovedať.</span></p>
+            <a class="btn btn-ghost" href="#contact" data-i18n="svc.3.cta">Nastaviť asistenta</a>
+          </article>
+        </div>
+
+        <div class="skills" data-reveal>
+          <h3 data-i18n="skills.h2">Ako to vyzerá v bežný deň.</h3>
+          <p class="lede" data-i18n="skills.lede">Konkrétne kúsky, nie agentúrny predaj.</p>
+          <ul class="skill-list">
+            <li data-i18n="skills.1">Pondelkový report, ktorý sa obnoví sám</li>
+            <li data-i18n="skills.2">Triedenie schránky so zdrojom a hranicou</li>
+            <li data-i18n="skills.3">Poznámky zo stretnutia premenené na úlohy</li>
+            <li data-i18n="skills.4">Vedomosti tímu, na ktoré sa dá spýtať</li>
+            <li data-i18n="skills.5">Nastavenie nástrojov tak, aby ich ľudia otvorili</li>
+            <li data-i18n="skills.6">Asistent, ktorý odpovie z vašich dát</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="process">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="index" data-i18n="proc.index">03</p>
+          <div>
+            <h2 data-i18n="proc.h2">Ako projekt reálne postupuje.</h2>
+            <p class="lede" data-i18n="proc.lede">Dosť malý na skúšku, dosť hotový na odovzdanie.</p>
+          </div>
+        </div>
+        <div class="steps" data-reveal>
+          <article class="step">
+            <b>01</b>
+            <h3 data-i18n="proc.1.t">Pomenovať prácu</h3>
+            <p data-i18n="proc.1.p">Aké rozhodnutie alebo opakujúca sa úloha má byť ľahšia? Pomenujeme dáta, ľudí a čo znamená hotovo.</p>
+          </article>
+          <article class="step">
+            <b>02</b>
+            <h3 data-i18n="proc.2.t">Malý prvý kúsok</h3>
+            <p data-i18n="proc.2.p">Nastavenie, asistent s jedným skutočným pripojením, alebo postup, ktorý jeden človek skúsi tento týždeň.</p>
+          </article>
+          <article class="step">
+            <b>03</b>
+            <h3 data-i18n="proc.3.t">Poriadne napojiť</h3>
+            <p data-i18n="proc.3.p">Prístup na vašej strane, hranice a kroky, ktoré zvládne aj niekto iný.</p>
+          </article>
+          <article class="step">
+            <b>04</b>
+            <h3 data-i18n="proc.4.t">Nechať bežať</h3>
+            <p data-i18n="proc.4.p">Dokumentácia, odovzdanie a krátke doladenie, keď skutočné použitie ukáže, čo opraviť.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules">
+      <div class="wrap rules">
+        <div data-reveal>
+          <p class="index" data-i18n="rules.index">04</p>
+          <h2 data-i18n="rules.h2">Malý systém, ktorému ľudia veria.</h2>
+          <p class="lede" data-i18n="rules.lede">Toto sú pravidlá. Platí ich aj firemná práca.</p>
+        </div>
+        <ol class="rule-list">
+          <li data-reveal>
+            <span>01</span>
+            <p><strong data-i18n="rules.1">Vidieť zdroj.</strong><span data-i18n="rules.1.p"> Asistent odpovedá zo systému, alebo povie, že nevie. Odpoveď z hádania neposielam.</span></p>
+          </li>
+          <li data-reveal>
+            <span>02</span>
+            <p><strong data-i18n="rules.2">Prihlásenie mimo chatu.</strong><span data-i18n="rules.2.p"> Heslá ostanú v jednorazovom prihlásení. Chat ich nikdy neuvidí.</span></p>
+          </li>
+          <li data-reveal>
+            <span>03</span>
+            <p><strong data-i18n="rules.3">Označiť, čo ostáva na človeku.</strong><span data-i18n="rules.3.p"> Niektoré kroky sa nemajú automatizovať. Pomenujeme ich skôr, než niečo zapojíme.</span></p>
+          </li>
+          <li data-reveal>
+            <span>04</span>
+            <p><strong data-i18n="rules.4">Súbory ostávajú u vás.</strong><span data-i18n="rules.4.p"> Nastavenie, asistent a návod ostávajú na vašej strane.</span></p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap about">
+        <div class="portrait" data-reveal>
+          <!-- Drop a portrait at images/ivan.jpg. Initials stay until that file exists. -->
+          <img class="portrait-photo" src="images/ivan.jpg" alt="Ivan Hybben" hidden>
+          <div class="portrait-fallback">
+            <p class="kicker" data-i18n="about.kicker">O mne</p>
+            <div class="monogram">IH</div>
+          </div>
+          <p class="portrait-caption" data-i18n="about.caption">Softvérový inžinier zo Slovenska. Mám rád výsledok, na ktorý ukážete v utorok.</p>
+        </div>
+        <div class="about-copy" data-reveal>
+          <p class="tag" data-i18n="about.tag">Partner na prácu, ktorá naozaj beží</p>
+          <h2>Ivan Hybben.</h2>
+          <p data-i18n="about.p1">Staviam jednoduchú vrstvu, vďaka ktorej je AI užitočná. Stránka, ktorá sa dnes ráno obnovila. Asistent, ktorý odpovedal z živých dát. Kolega, ktorý to spustí aj bez mňa. Pracujem zo Slovenska s ľuďmi odkiaľkoľvek.</p>
+          <p data-i18n="about.p2">Začínam od úlohy, nie od nástroja. Keď je jasné, čo sa má stať ľahšie, nastavím alebo postavím ten najmenší kúsok, ktorý tím otvorí — a odovzdám ho tak, aby bežal aj bezo mňa.</p>
+          <ul class="chips">
+            <li data-i18n="chip.1">AI nastavenie pre tím</li>
+            <li data-i18n="chip.2">Automatizácie vo firme</li>
+            <li data-i18n="chip.3">Asistent z vašich dát</li>
+            <li data-i18n="chip.4">Dashboardy s obnovou</li>
+            <li data-i18n="chip.5">Lokálne, keď na tom záleží</li>
+            <li data-i18n="chip.6">Dokumentácia na odovzdanie</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <p class="index" data-i18n="faq.index">05</p>
+          <div>
+            <h2 data-i18n="faq.h2">Otázky, ktoré stoja za to položiť skôr.</h2>
+          </div>
+        </div>
+        <div class="faq">
+          <article class="faq-item" data-faq data-open="false">
+            <h3>
+              <button type="button" aria-expanded="false">
+                <span data-i18n="faq.1.q">Čo konkrétne odovzdáte?</span>
+                <span class="plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" data-faq-panel hidden>
+              <p data-i18n="faq.1.a">Bežiaci kúsok a návod, ako ho udržať. Môže to byť nastavenie AI v nástrojoch, ktoré už máte, automatizovaný report, alebo asistent napojený na systém, ktorý už používate.</p>
+            </div>
+          </article>
+          <article class="faq-item" data-faq data-open="false">
+            <h3>
+              <button type="button" aria-expanded="false">
+                <span data-i18n="faq.2.q">Musia dáta odísť z mojich počítačov?</span>
+                <span class="plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" data-faq-panel hidden>
+              <p data-i18n="faq.2.a">Nie štandardne. Keď má niečo ostať lokálne, pomenujeme to hneď. Asistent, ktorý volá vonkajšiu službu, je samostatné rozhodnutie.</p>
+            </div>
+          </article>
+          <article class="faq-item" data-faq data-open="false">
+            <h3>
+              <button type="button" aria-expanded="false">
+                <span data-i18n="faq.3.q">Ako vyzerá prvý projekt?</span>
+                <span class="plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" data-faq-panel hidden>
+              <p data-i18n="faq.3.a">Jedna práca, jeden zdroj dát, jeden človek, ktorý to použije. To spustíme, potom rozhodneme, či to má rásť. Na začiatok stačí pár viet o tom, čo chcete zlepšiť.</p>
+            </div>
+          </article>
+          <article class="faq-item" data-faq data-open="false">
+            <h3>
+              <button type="button" aria-expanded="false">
+                <span data-i18n="faq.4.q">Sme v AI nástrojoch noví. Vadí to?</span>
+                <span class="plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" data-faq-panel hidden>
+              <p data-i18n="faq.4.a">To je bežný štart. Nastavenie zahŕňa ktorý nástroj, kde sedí v dni a čoho sa nemá dotknúť. Cieľ je zvyk, nie hromada účtov.</p>
+            </div>
+          </article>
+          <article class="faq-item" data-faq data-open="false">
+            <h3>
+              <button type="button" aria-expanded="false">
+                <span data-i18n="faq.5.q">Ako vám napíšem?</span>
+                <span class="plus" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div class="faq-panel" data-faq-panel hidden>
+              <p data-i18n="faq.5.a">Na ivanhybben@gmail.com. Formulár na stránke otvorí váš mailový program s predvyplnenou správou — správu odošlete vy.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="contact">
+          <div>
+            <p class="kicker" data-i18n="contact.kicker">Kontakt</p>
+            <h2 data-i18n="contact.h2">Napíšte, čo chcete zlepšiť.</h2>
+            <p class="lede" data-i18n="contact.lede">Som na Slovensku. Píšte odkiaľkoľvek — časové pásma zvládneme. Stačí krátka správa. Odoslaním formulára sa otvorí váš mailový program a predvyplní správu na ivanhybben@gmail.com. Nič sa neposiela zo stránky — odošlete to vy.</p>
+            <div class="contact-list">
+              <div>
+                <span data-i18n="contact.email">Email</span>
+                <a href="mailto:ivanhybben@gmail.com">ivanhybben@gmail.com</a>
+              </div>
+              <div class="where">
+                <span data-i18n="contact.location">Kde som</span>
+                <p class="place" data-i18n="contact.remote">Slovensko</p>
+                <p class="place-note" data-i18n="contact.anywhere">Píšte odkiaľkoľvek. Práca na diaľku je predvolená.</p>
+              </div>
+            </div>
+          </div>
+          <div class="contact-side">
+            <div class="offer-row">
+              <article class="mini">
+                <h3 data-i18n="contact.offer1.t">Prvý rozhovor</h3>
+                <p data-i18n="contact.offer1.p">30 minút. Čo berie čas a koho to zaťažuje?</p>
+              </article>
+              <article class="mini">
+                <h3 data-i18n="contact.offer2.t">Stačí odsek</h3>
+                <p data-i18n="contact.offer2.p">Čo sa opakuje a čo by malo ísť ľahšie.</p>
+              </article>
+            </div>
+            <form data-form>
+              <label class="field">
+                <span data-i18n="contact.name">Meno</span>
+                <input name="name" autocomplete="name" data-i18n-placeholder="contact.name.ph" placeholder="Vaše meno (voliteľné)">
+              </label>
+              <label class="field">
+                <span data-i18n="contact.note">Čo chcete zlepšiť</span>
+                <textarea name="note" required data-i18n-placeholder="contact.note.ph" placeholder="Napíšte pár viet — čo sa opakuje, čo by malo ísť ľahšie."></textarea>
+              </label>
+              <button class="btn btn-lime" type="submit" data-i18n="contact.submit">Otvoriť email s touto správou</button>
+              <p class="form-hint" data-i18n="contact.hint">Otvorí sa váš mailový program. Správu odošlete vy — stránka nič neposiela.</p>
+              <p class="form-status" data-form-status role="status"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap footer">
+    <p data-i18n="footer.copy">© 2026 Ivan Hybben. Slovensko · na diaľku.</p>
+    <p><a href="mailto:ivanhybben@gmail.com" data-i18n="footer.mail">ivanhybben@gmail.com</a></p>
+  </footer>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/sketches.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
