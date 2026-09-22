@@ -774,6 +774,7 @@ h2 {
   height: 100%;
   object-fit: cover;
   object-position: center top;
+  display: none;
 }
 .portrait.has-photo .portrait-photo { display: block !important; }
 .portrait.has-photo .portrait-fallback { display: none; }

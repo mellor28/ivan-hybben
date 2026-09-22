@@ -29,12 +29,21 @@ document.addEventListener("ih:lang", paintTicker);
 
 const photo = document.querySelector(".portrait-photo");
 if (photo) {
+  const portrait = photo.closest(".portrait");
   const showPhoto = () => {
     photo.hidden = false;
-    photo.closest(".portrait")?.classList.add("has-photo");
+    photo.style.display = "";
+    portrait?.classList.add("has-photo");
+  };
+  const hidePhoto = () => {
+    portrait?.classList.remove("has-photo");
   };
   photo.addEventListener("load", showPhoto);
-  if (photo.complete && photo.naturalWidth > 0) showPhoto();
+  photo.addEventListener("error", hidePhoto);
+  if (photo.complete) {
+    if (photo.naturalWidth > 0) showPhoto();
+    else hidePhoto();
+  }
 }
 
 const nav = document.querySelector("[data-nav]");
@@ -139,6 +148,11 @@ if (reduceMotion) {
     { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
   );
   reveal.forEach((node) => observer.observe(node));
+  window.setTimeout(() => {
+    document.querySelectorAll("[data-reveal]:not(.is-in)").forEach((node) => {
+      node.classList.add("is-in");
+    });
+  }, 1000);
 } else {
   reveal.forEach((node) => node.classList.add("is-in"));
 }
