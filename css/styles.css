@@ -773,9 +773,19 @@ h2 {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
 }
 .portrait.has-photo .portrait-photo { display: block !important; }
 .portrait.has-photo .portrait-fallback { display: none; }
+.portrait.has-photo::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 42%;
+  background: linear-gradient(to top, rgba(11, 12, 12, 0.82), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
 .portrait-fallback {
   position: absolute;
   inset: 0;
@@ -799,6 +809,10 @@ h2 {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
+  z-index: 2;
+}
+.portrait.has-photo .portrait-caption {
+  color: var(--cream);
 }
 .about-copy .tag {
   margin: 0 0 12px;
